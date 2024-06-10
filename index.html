@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index.css">
     <link rel="icon" type="image/png" href="./assets/Images/Logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="./assets/components/toasts.js"></script>
     <script src="./assets/JavaScript/actions.js"></script>
     <title>Idle cooking</title>
@@ -30,6 +31,11 @@
                     <label>Cook</label>
                     <progress id="cooking_progress" value="0" max="100"></progress>
                     <button id="cooking_button" onclick="startTask('cooking')"><span>Start Cooking</span></button>
+                    <div class="card_workers">
+                        <button onclick=""><i class="fa-solid fa-plus"></i></button>
+                        <p>Workers: x</p>
+                        <button onclick=""><i class="fa-solid fa-minus"></i></button>
+                    </div>
                 </div>
             </div>
             <div class="card_wrapper">
@@ -37,6 +43,11 @@
                     <label>Serve</label>
                     <progress id="serving_progress" value="0" max="100"></progress>
                     <button id="serving_button" onclick="startTask('serving')"><span>Start Serving</span></button>
+                    <div class="card_workers">
+                        <button onclick=""><i class="fa-solid fa-plus"></i></button>
+                        <p>Workers: x</p>
+                        <button onclick=""><i class="fa-solid fa-minus"></i></button>
+                    </div>
                 </div>
             </div>
             <div class="card_wrapper">
@@ -44,6 +55,11 @@
                     <label>Clean</label>
                     <progress id="cleaning_progress" value="0" max="100"></progress>
                     <button id="cleaning_button" onclick="startTask('cleaning')"><span>Start Cleaning</span></button>
+                    <div class="card_workers">
+                        <button onclick=""><i class="fa-solid fa-plus"></i></button>
+                        <p>Workers: x</p>
+                        <button onclick=""><i class="fa-solid fa-minus"></i></button>
+                    </div>
                 </div>
             </div>        
         </div>
@@ -52,8 +68,24 @@
                 <div class="card_large">
                     <label>Management</label>
                     <hr>
-                    <div management_content>
-                        <button id="raw_food_button" onclick="buyRawfood()">Buy more raw food(2$ for 1)</button>
+                    <div class="management_content">
+                        <div class="column">
+                            <!-- BUY FOOD -->
+                            <p class="desc">Buy more raw food to cook more.</p>
+                            <button id="raw_food_button" onclick="buyRawfood()">Buy raw food (2$)</button>
+                            <hr>
+                            <!-- WORKERS -->
+                            <p id="worker_stats">Workers: x/x</p>
+                            <p class="desc">A worker can automate tasks <br> for you, like fx. cooking.</p>
+                            <button id="hire_button" onclick="">Hire new worker (x$)</button>
+                            <hr>
+                            <!-- ADDS -->
+                            <p id="adds_stats">Time remaining: 00:00:00</p>
+                            <p class="desc">Buy adds to get more customers <br> for a period of time.</p>
+                            <button class="adds_button" onclick="">10 min</button>
+                            <button class="adds_button" onclick="">30 min</button>
+                            <button class="adds_button" onclick="">1 hour</button>
+                        </div>
                     </div>
                 </div>
             </div>
