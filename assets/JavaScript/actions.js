@@ -1,29 +1,10 @@
-try{
-    import toast, { Toaster } from 'solid-toast';
-
-    const notify = () => toast('Here is your toast.');
-    
-    const App = () => {
-      return (
-        <div>
-          <button onClick={notify}>Make me a toast</button>
-          <Toaster />
-        </div>
-      );
-    };
-}
-catch (error){
-    console.log(error)
-}
-
-
 let raw_food = 5;
 let raw_food_max = 10;
 
 let cooked_food = 0;
 let cooked_food_max = 10;
 
-let hygiene = 0;
+let hygiene = 80;
 let hygiene_max = 100;
 
 let money = 0;
@@ -88,8 +69,7 @@ function startTask(task) {
 
     if (button.textContent === details.startText) {
         if (!details.checkCondition()) {
-            //alert(`Not enough resources or max capacity to start ${task}!`);
-            error(`Not enough resources or max capacity to start ${task}!`)
+            alert(`Not enough resources or max capacity to start ${task}!`);
             return;
         }
 
@@ -103,6 +83,13 @@ function startTask(task) {
                 if (time < 100) {
                     time += 10;
                     progressElement.value = time;
+                    if (button.id === "cooking_button"){
+                        hygiene--;
+                        if (hygiene < 0){
+                            hygiene = 0
+                        }
+                        updateGUI();
+                    }
                 } else {
                     time = 0;
                     progressElement.value = time;
@@ -130,7 +117,7 @@ function autoCustomers() {
             customers++;
             updateGUI();
         }
-    }, 10000-hygiene*90);
+    }, 20000-hygiene*90);
 }
 
 function buyRawfood(){
@@ -140,11 +127,10 @@ function buyRawfood(){
         updateGUI()
     }
     else{
-        toast.error(`Not enough resources or max capacity to start ${task}!`)
-        //alert(`Not enough money or max capacity!`)
+        alert(`Not enough money or max capacity!`)
     }
 }
-// Execute updateGUI when the document has fully loaded
+
 document.addEventListener('DOMContentLoaded', (event) => {
     updateGUI();
     autoCustomers();
