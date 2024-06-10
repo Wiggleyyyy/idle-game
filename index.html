@@ -4,9 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index.css">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="./assets/Images/Logo.png">
+    <script src="./assets/JavaScript/actions.js"></script>
+    <title>Idle cooking</title>
 </head>
 <body>
+    <div class="header">
+        <div class="stats">
+            <p>Money: <span id="money_value">x$</span></p>
+            <p>Raw food: <span id="raw_food_value">x/x</span> <button id="raw_food_button" onclick="buyRawfood()">Buy more raw food(2$ for 1)</button></p>
+            <p>Cooked food: <span id="cooked_food_value">x/x</span></p>
+            <p>Hygiene: <span id="hygiene_value">x%</span></p>
+            <p>Customers: <span id="customers_value">x/x</span></p>
+        </div>
+        <h1>Idle Cooking</h1>
+        <img class="image_logo" src="./assets/Images/Logo-Photoroom.png" alt="Logo">
     
+    </div>
+
+    <div class="card_wrapper">
+        <div class="card" id="cooking_card">
+            <label>Cook</label>
+            <progress id="cooking_progress" value="0" max="100"></progress>
+            <button id="cooking_button" onclick="startTask('cooking')">Start Cooking</button>
+        </div>
+    </div>
+
+    <div class="card_wrapper">
+        <div class="card" id="serving_card">
+            <label>Serve</label>
+            <progress id="serving_progress" value="0" max="100"></progress>
+            <button id="serving_button" onclick="startTask('serving')">Start Serving</button>
+        </div>
+    </div>
+
+    <div class="card_wrapper">
+        <div class="card" id="cleaning_card">
+            <label>Clean</label>
+            <progress id="cleaning_progress" value="0" max="100"></progress>
+            <button id="cleaning_button" onclick="startTask('cleaning')">Start Cleaning</button>
+        </div>
+    </div>
+
+    <script src="./assets/JavaScript/actions.js"></script>
 </body>
 </html>
