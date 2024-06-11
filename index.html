@@ -42,7 +42,7 @@
                     <div class="upgrades_column">
                         <label>Cooking</label>
                         <hr>
-                        <button><i class="filler"></i>Stats (10$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for cooking.</span></span></button>
+                        <button class="button_lock"><i class="filler"></i>Stats (10$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for cooking.</span></span></button>
                     </div>
                     <div class="upgrades_column">
                         <p>Serving</p>
@@ -55,10 +55,16 @@
                         <button><i class="filler"></i>Stats (10$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for cleaning.</span></span></button>
                     </div>
                 </div>
-                <button><i class="filler"></i>Unlock workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock workers that can do tasks automatically.</span></span></button>
+                <div class="" id="workers_upgrade_container">
+                    <button class="hide"><i class="filler"></i>Unlock workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock workers that can do tasks automatically.</span></span></button>
+                </div>
                 <div class="upgrades_container">
                     <div class="upgrades_column">
                         <button><i class="filler"></i>Workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to cook.</span></span></button>
+                        <div class="upgrades_row">
+                            <button>Raw food<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock upgrades for raw food storage.</span></span></button>
+                            <button>Cooked food <span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unluck upgrades for cooked food storage</span></span></button>
+                        </div>
                     </div>
                     <div class="upgrades_column">
                         <button><i class="filler"></i>Workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to serve.</span></span></button>
@@ -73,7 +79,7 @@
 
     <div class="game_container">
         <div class="actions">
-            <div class="card_wrapper">
+            <div class="card_wrapper" id="cooking_card_wrapper">
                 <div class="card" id="cooking_card">
                     <label>Cook</label>
                     <progress id="cooking_progress" value="0" max="100"></progress>
@@ -86,12 +92,12 @@
                     <p id="cooking_persec" >x$/sec</p>
                 </div>
             </div>
-            <div class="card_wrapper">
+            <div class="card_wrapper" id="serving_card_wrapper">
                 <div class="card" id="serving_card">
                     <label>Serve</label>
                     <progress id="serving_progress" value="0" max="100"></progress>
                     <button id="serving_button" onclick="startTask('serving')"><span>Start Serving</span></button>
-                    <div class="card_workers">
+                    <div class="card_workers" id="card_workers">
                         <button onclick="workerRemove('serving')"><i class="fa-solid fa-minus"></i></button>
                         <p id="serving_workers_label" >Workers: x</p>
                         <button onclick="workerAdd('serving')"><i class="fa-solid fa-plus"></i></button>
@@ -99,7 +105,7 @@
                     <p id="serving_persec" >x/sec</p>
                 </div>
             </div>
-            <div class="card_wrapper">
+            <div class="card_wrapper" id="cleaning_card_wrapper">
                 <div class="card" id="cleaning_card">
                     <label>Clean</label>
                     <progress id="cleaning_progress" value="0" max="100"></progress>
@@ -148,8 +154,14 @@
                         <hr>
                         <p class="desc">Research to unlock new upgrades.</p>
                         <button class="upgrades_button" onclick="show_modal()">Research</button>
+                        <p class="stats">Upgrades: <span>0/x</span></p>
                         <hr>
-                            
+                        <label class="sub_title">Storage</label>
+                        <p class="desc">Upgrade the storage for food.</p>
+                        <div class="storage">
+                            <button>Raw food +1 (x$)</button>
+                            <button>Cooked food +1 (x$)</button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -45,6 +45,10 @@ button {
     font-family: Fredoka-regular;
 }
 
+.hide {
+    display: none;
+}
+
 .tooltip {
     position: relative;
     display: inline-block;
@@ -96,7 +100,7 @@ button {
     display: none;
     position: fixed;
     z-index: 1000;
-    padding-top: 100px;
+    padding-top: 10vh;
     left: 0;
     right: 0;
     width: 100%;
@@ -279,6 +283,8 @@ button {
 
 .modal_content .upgrades_container .upgrades_column .upgrades_row button {
     width: 15vh;
+    font-size: 2.3vh;
+    display: flex;
 }
 
 .game_container {
@@ -489,4 +495,24 @@ button {
 
 .upgrades .column button:active {
     background: linear-gradient(150deg, #fbc60e, #fff);
+}
+
+.upgrades .column .stats {
+    margin: 1vh;
+    font-size: 3vh;
+}
+
+.upgrades .column .sub_title {
+    font-size: 4vh;
+}
+
+.upgrades .column .storage {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upgrades .column .storage button {
+    margin: 1vh;
 }
