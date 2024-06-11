@@ -1,0 +1,9 @@
+alt er hide
+
+1. start af game: cook show
+2. cooked food >= 1: serve show
+3. hygiene < 50%: clean show
+4. raw food = 0: management / buy raw food show
+5. money >= 100: show research
+
+research tree

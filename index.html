@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./assets/components/toasts.css">
     <link rel="icon" type="image/png" href="./assets/Images/Logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="./assets/components/toasts.js"></script>
     <script src="./assets/JavaScript/actions.js"></script>
+    <script src="./assets/JavaScript/management.js"></script>
+    <script src="./assets/JavaScript/popup_handler.js"></script>
     <title>Idle cooking</title>
 </head>
 <body>
@@ -24,6 +27,50 @@
         <img class="image_logo" src="./assets/Images/Logo-Photoroom.png" alt="Logo">    
     </div>
 
+    <!-- POPUP -->
+    <div class="modal" id="modal_popup">
+        <div class="modal_content_wrapper">
+            <div class="modal_content">
+                <div class="modal_header">
+                    <i class="fa-solid fa-book" id="icon"></i>
+                    <label>Research</label>
+                    <button onclick="hide_modal()"><i class="fa-solid fa-circle-xmark"></i></button>
+                </div>
+                <hr>
+                <!-- PART 1 OF UPGRADES -->
+                <div class="upgrades_container">
+                    <div class="upgrades_column">
+                        <label>Cooking</label>
+                        <hr>
+                        <button><i class="filler"></i>Stats (10$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for cooking.</span></span></button>
+                    </div>
+                    <div class="upgrades_column">
+                        <p>Serving</p>
+                        <hr>
+                        <button><i class="filler"></i>Stats (10$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for serving.</span></span></button>
+                    </div>
+                    <div class="upgrades_column">
+                        <p>Cleaning</p>
+                        <hr>
+                        <button><i class="filler"></i>Stats (10$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for cleaning.</span></span></button>
+                    </div>
+                </div>
+                <button><i class="filler"></i>Unlock workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock workers that can do tasks automatically.</span></span></button>
+                <div class="upgrades_container">
+                    <div class="upgrades_column">
+                        <button><i class="filler"></i>Workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to cook.</span></span></button>
+                    </div>
+                    <div class="upgrades_column">
+                        <button><i class="filler"></i>Workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to serve.</span></span></button>
+                    </div>
+                    <div class="upgrades_column">
+                        <button><i class="filler"></i>Workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to clean.</span></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="game_container">
         <div class="actions">
             <div class="card_wrapper">
@@ -32,10 +79,11 @@
                     <progress id="cooking_progress" value="0" max="100"></progress>
                     <button id="cooking_button" onclick="startTask('cooking')"><span>Start Cooking</span></button>
                     <div class="card_workers">
-                        <button onclick=""><i class="fa-solid fa-plus"></i></button>
-                        <p>Workers: x</p>
-                        <button onclick=""><i class="fa-solid fa-minus"></i></button>
+                        <button onclick="workerRemove('cooking')"><i class="fa-solid fa-minus"></i></button>
+                        <p id="cooking_workers_label" >Workers: x</p>
+                        <button onclick="workerAdd('cooking')"><i class="fa-solid fa-plus"></i></button>
                     </div>
+                    <p id="cooking_persec" >x$/sec</p>
                 </div>
             </div>
             <div class="card_wrapper">
@@ -44,10 +92,11 @@
                     <progress id="serving_progress" value="0" max="100"></progress>
                     <button id="serving_button" onclick="startTask('serving')"><span>Start Serving</span></button>
                     <div class="card_workers">
-                        <button onclick=""><i class="fa-solid fa-plus"></i></button>
-                        <p>Workers: x</p>
-                        <button onclick=""><i class="fa-solid fa-minus"></i></button>
+                        <button onclick="workerRemove('serving')"><i class="fa-solid fa-minus"></i></button>
+                        <p id="serving_workers_label" >Workers: x</p>
+                        <button onclick="workerAdd('serving')"><i class="fa-solid fa-plus"></i></button>
                     </div>
+                    <p id="serving_persec" >x/sec</p>
                 </div>
             </div>
             <div class="card_wrapper">
@@ -56,10 +105,11 @@
                     <progress id="cleaning_progress" value="0" max="100"></progress>
                     <button id="cleaning_button" onclick="startTask('cleaning')"><span>Start Cleaning</span></button>
                     <div class="card_workers">
-                        <button onclick=""><i class="fa-solid fa-plus"></i></button>
-                        <p>Workers: x</p>
-                        <button onclick=""><i class="fa-solid fa-minus"></i></button>
+                        <button onclick="workerRemove('cleaning')"><i class="fa-solid fa-minus"></i></button>
+                        <p id="cleaning_workers_label" >Workers: x</p>
+                        <button onclick="workerAdd('cleaning')"><i class="fa-solid fa-plus"></i></button>
                     </div>
+                    <p id="cleaning_persec" >x/sec</p>
                 </div>
             </div>        
         </div>
@@ -76,22 +126,38 @@
                             <hr>
                             <!-- WORKERS -->
                             <p id="worker_stats">Workers: x/x</p>
-                            <p class="desc">A worker can automate tasks <br> for you, like fx. cooking.</p>
-                            <button id="hire_button" onclick="">Hire new worker (x$)</button>
+                            <p class="desc">A worker can automate tasks <br> for you, like e.g. cooking.</p>
+                            <button id="hire_button" onclick="workerBuy()">Hire new worker (x$)</button>
                             <hr>
                             <!-- ADDS -->
-                            <p id="adds_stats">Time remaining: 00:00:00</p>
-                            <p class="desc">Buy adds to get more customers <br> for a period of time.</p>
-                            <button class="adds_button" onclick="">10 min</button>
-                            <button class="adds_button" onclick="">30 min</button>
-                            <button class="adds_button" onclick="">1 hour</button>
+                            <p id="adds_stats">Time remaining: 00:00</p>
+                            <p class="desc">Buy advertisement to get more customers <br> for a period of time.</p>
+                            <button class="adds_button" onclick="adsAdd(10)">10 sec (250$)</button>
+                            <button class="adds_button" onclick="adsAdd(30)">30 sec (750$)</button>
+                            <button class="adds_button" onclick="adsAdd(60)">1 min (1500$)</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="upgrades">
+            <div class="card_wrapper_large">
+                <div class="card_large">
+                    <div class="column">
+                        <label>Upgrades</label>
+                        <hr>
+                        <p class="desc">Research to unlock new upgrades.</p>
+                        <button class="upgrades_button" onclick="show_modal()">Research</button>
+                        <hr>
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./assets/JavaScript/popup_handler.js"></script>
 </body>
 </html>

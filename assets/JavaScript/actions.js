@@ -1,26 +1,57 @@
 let raw_food = 5;
-let raw_food_max = 10;
+let raw_food_max = 25;
 
 let cooked_food = 0;
-let cooked_food_max = 10;
+let cooked_food_max = 25;
 
 let hygiene = 80;
 let hygiene_max = 100;
 
-let money = 0;
+let money = 3000;
 
 let customers = 0;
 let customers_max = 10;
 
 let currentTask = null;
+let currentTask_ForGUI = null;
 
 function updateGUI() {
     try {
+        if(raw_food < 0){
+            raw_food = 0;
+        }
+        if (cooked_food < 0){
+            cooked_food = 0;
+        }
+
         document.getElementById('customers_value').textContent = customers + " / " + customers_max;
-        document.getElementById('money_value').textContent = money + "$";
-        document.getElementById('raw_food_value').textContent = raw_food + " / " + raw_food_max;
-        document.getElementById('cooked_food_value').textContent = cooked_food + " / " + cooked_food_max;
-        document.getElementById('hygiene_value').textContent = hygiene + "%";
+        document.getElementById('money_value').textContent = money.toFixed(2) + "$";
+        document.getElementById('raw_food_value').textContent = raw_food.toFixed(2) + " / " + raw_food_max;
+        document.getElementById('cooked_food_value').textContent = cooked_food.toFixed(2) + " / " + cooked_food_max;
+        document.getElementById('hygiene_value').textContent = hygiene.toFixed(2) + "%";
+        document.getElementById('worker_stats').textContent = "Workers: "+workers+ " / "+ workers_max;
+        document.getElementById('cooking_workers_label').textContent = "Workers: "+cooking_workers;
+        document.getElementById('serving_workers_label').textContent = "Workers: "+serving_workers;
+        document.getElementById('cleaning_workers_label').textContent = "Workers: "+cleaning_workers; 
+
+        document.getElementById('cooking_persec').textContent = (1 * cooking_workers / 15).toFixed(2)+" Cooked Food/sec";
+        document.getElementById('serving_persec').textContent = (10*serving_workers/15).toFixed(2)+" $/sec";
+        document.getElementById('cleaning_persec').textContent = (10*cleaning_workers/15).toFixed(2)+" Hygiene/sec"; 
+
+        switch(currentTask_ForGUI){
+            case "cooking":
+                        document.getElementById('cooking_persec').textContent = (1 * cooking_workers / 15+0.1).toFixed(2)+" Cooked Food/sec";
+                break;
+            case "serving":
+                        document.getElementById('serving_persec').textContent = (10*serving_workers/15+1).toFixed(2)+" $/sec";
+                break;
+            case "cleaning":
+                        document.getElementById('cleaning_persec').textContent = (10*cleaning_workers/15+1).toFixed(2)+" Hygiene/sec"; 
+                break;
+        }
+
+        let price = (workers+cooking_workers+serving_workers+cleaning_workers+1)*100;
+        document.getElementById('hire_button').textContent = `Hire new worker (${price}$)`;
     } catch (error) {
         console.log(error);
     }
@@ -32,6 +63,8 @@ function clearCurrentTask() {
         document.getElementById(currentTask.buttonId).textContent = currentTask.startText;
         document.getElementById(currentTask.progressId).value = 0;
         currentTask = null;
+        currentTask_ForGUI = null;
+        updateGUI();
     }
 }
 
@@ -42,16 +75,16 @@ function startTask(task) {
             progressId: 'cooking_progress',
             startText: 'Start Cooking',
             stopText: 'Stop Cooking',
-            checkCondition: () => raw_food > 0 && cooked_food < cooked_food_max,
-            performAction: () => { raw_food--; cooked_food++; }
+            checkCondition: () => raw_food >= 0.1 && cooked_food < cooked_food_max,
+            performAction: () => { raw_food -= 0.1; cooked_food += 0.1; }
         },
         serving: {
             buttonId: 'serving_button',
             progressId: 'serving_progress',
             startText: 'Start Serving',
             stopText: 'Stop Serving',
-            checkCondition: () => cooked_food > 0,
-            performAction: () => { cooked_food--; money += 10; }
+            checkCondition: () => cooked_food >= 0.1,
+            performAction: () => { cooked_food -= 0.1; money += 1; }
         },
         cleaning: {
             buttonId: 'cleaning_button',
@@ -59,7 +92,7 @@ function startTask(task) {
             startText: 'Start Cleaning',
             stopText: 'Stop Cleaning',
             checkCondition: () => hygiene < hygiene_max,
-            performAction: () => { hygiene += 10; }
+            performAction: () => { hygiene += 1; }
         }
     };
 
@@ -69,11 +102,13 @@ function startTask(task) {
 
     if (button.textContent === details.startText) {
         if (!details.checkCondition()) {
-            alert(`Not enough resources or max capacity to start ${task}!`);
+            showErrorToast(`Not enough resources or max capacity to start ${task}!`);
             return;
         }
 
         clearCurrentTask();
+
+        currentTask_ForGUI = task;
 
         button.textContent = details.stopText;
         let time = 0;
@@ -84,7 +119,7 @@ function startTask(task) {
                     time += 10;
                     progressElement.value = time;
                     if (button.id === "cooking_button"){
-                        hygiene--;
+                        hygiene -= 0.1;
                         if (hygiene < 0){
                             hygiene = 0
                         }
@@ -100,7 +135,7 @@ function startTask(task) {
                         clearCurrentTask();
                     }
                 }
-            }, 1000),
+            }, 100),
             buttonId: details.buttonId,
             progressId: details.progressId,
             startText: details.startText,
@@ -111,27 +146,23 @@ function startTask(task) {
     }
 }
 
-function autoCustomers() {
-    setInterval(() => {
+async function autoCustomers() {
+    while (true) {
         if (customers < customers_max) {
             customers++;
             updateGUI();
         }
-    }, 20000-hygiene*90);
+        await wait(20000 - hygiene * 90 * adsmult);
+    }
 }
 
-function buyRawfood(){
-    if (money >= 2 && raw_food < raw_food_max){
-        raw_food++;
-        money -= 2;
-        updateGUI()
-    }
-    else{
-        alert(`Not enough money or max capacity!`)
-    }
+function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
     updateGUI();
     autoCustomers();
+    workersDoStuff();
+    advertisement();
 });

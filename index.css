@@ -45,6 +45,35 @@ button {
     font-family: Fredoka-regular;
 }
 
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltip_text {
+    visibility: hidden;
+    width: 20vh;
+    background-color: #010c14;
+    color: #fff;
+    text-align: center;
+    border-radius: 1vh;
+    padding: 5px;
+    position: absolute;
+    z-index: 1001;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+
+
+.tooltip:hover .tooltip_text {
+    visibility: visible;
+    opacity: 1;
+}
+
 .header {
     display: flex;
     flex-direction: row;
@@ -61,6 +90,195 @@ button {
 
 .image_logo {
     width: 12.5vh;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 100px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal_content_wrapper {
+    background: linear-gradient(150deg, #fff, #fbc60e);
+    margin: auto;
+    box-sizing: border-box;
+    border-radius: 2vh;
+    width: 102vh;
+    height: 62vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal_content {
+    background-color: #031322;
+    padding: 1vh;
+    border-radius: 2vh;
+    width: 99vh;
+    height: 59vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal_content hr {
+    margin-top: 1.5vh;
+    margin-bottom: 1.5vh;
+    display: block;
+    border: none;
+    height: 5px;
+    width: 102vh;
+    background: linear-gradient(150deg, #fff, #fbc60e, #fff);
+    border-radius: 2vh;
+}
+
+.modal_content button {
+    color: #031322;
+    background: linear-gradient(150deg, #fff, #fbc60e);
+    border: none;
+    border-radius: 2vh;
+    font-size: 2.5vh;
+    transition: 0.3s ease;
+    width: 98vh;
+    height: 4.9vh;
+    justify-content: space-between; /* Ensure space-between */
+    align-items: center;
+    display: flex;
+    padding: 0 1vh; /* Add padding to accommodate space */
+}
+
+.modal_content button:hover {
+    transition: 0.3s;
+    transform: scale(1.02);
+}
+
+.modal_content button:active {
+    background: linear-gradient(150deg, #fbc60e, #fff);
+}
+
+.modal_content .modal_header {
+    margin: 1vh 3vh 0 3vh;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    padding-left: 2vh;
+    padding-right: 2vh;
+}
+
+.modal_content .modal_header * {
+    padding-left: 2vh;
+    padding-right: 2vh;
+}
+
+.modal_content .modal_header label {
+    font-size: 4vh;
+
+}
+
+.modal_content .modal_header #icon {
+    background-color: #fbc60e;
+    background-image: linear-gradient(150deg, #fff, #fbc60e, #fff);
+    font-size: 5vh;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.modal_content .modal_header button {
+    color: #031322;
+    background: linear-gradient(150deg, #fff, #fbc60e);
+    border: none;
+    border-radius: 2vh;
+    font-size: 2.5vh;
+    transition: 0.3s ease;
+    width: 5vh;
+    height: 4.9vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 1vh;
+}
+
+.modal_content .modal_header button:hover {
+    transition: 0.3s;
+    transform: scale(1.02);
+}
+
+.modal_content .modal_header button:active {
+    background: linear-gradient(150deg, #fbc60e, #fff);
+}
+
+.modal_content .modal_header button i {
+    color: #031322;
+    font-size: 4vh;
+}
+
+.modal_content .upgrades_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.modal_content .upgrades_container .upgrades_column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal_content .upgrades_container .upgrades_column hr {
+    margin-top: 1.5vh;
+    margin-bottom: 1.5vh;
+    display: block;
+    border: none;
+    height: 5px;
+    width: 32vh;
+    background: linear-gradient(150deg, #fff, #fbc60e, #fff);
+    border-radius: 2vh;
+}
+
+.modal_content .upgrades_container .upgrades_column button {
+    color: #031322;
+    background: linear-gradient(150deg, #fff, #fbc60e);
+    padding: 1vh;
+    border: none;
+    border-radius: 2vh;
+    font-size: 2.5vh;
+    transition: 0.3s ease;
+    width: 32vh;
+    height: 5vh;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
+.modal_content .upgrades_container .upgrades_column button:hover {
+    transition: 0.3s;
+    transform: scale(1.02);
+}
+
+.modal_content .upgrades_container .upgrades_column button:active {
+    background: linear-gradient(150deg, #fbc60e, #fff);
+}
+
+.modal_content .upgrades_container .upgrades_column .upgrades_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 32vh;
+}
+
+.modal_content .upgrades_container .upgrades_column .upgrades_row button {
+    width: 15vh;
 }
 
 .game_container {
@@ -217,6 +435,7 @@ button {
     font-size: 2.5vh;
     padding: 1vh;
     transition: 0.3s ease;
+    width: 30vh;
 }
 
 .management_content .column button:hover {
@@ -233,6 +452,41 @@ button {
 }
 
 .management_content .column .adds_button {
-    width: 25vh;
+    width: 30vh;
     margin: 1vh;
+}
+
+.upgrades .column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.upgrades .column hr {
+    width: 30vh;
+}
+
+.upgrades .column .desc {
+    margin-bottom: 1vh;
+}
+
+.upgrades .column button {
+    color: #031322;
+    background: linear-gradient(150deg, #fff, #fbc60e);
+    border: none;
+    border-radius: 2vh;
+    font-size: 2.5vh;
+    padding: 1vh;
+    transition: 0.3s ease;
+    width: 30vh;
+}
+
+.upgrades .column button:hover {
+    transition: 0.3s;
+    transform: scale(1.02);
+}
+
+.upgrades .column button:active {
+    background: linear-gradient(150deg, #fbc60e, #fff);
 }
