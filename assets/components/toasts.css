@@ -37,6 +37,7 @@
     display: block;
     width: 100%;
     padding: 10px;
+    margin: 3% 0 5px;
     border-radius: 4px;
     font-size: 12px;
     font-family: arial, sans-serif;
@@ -46,14 +47,30 @@
     background-color: #444;
     color: #fff;
 }
+.jq-toast-single:first-child {
+    margin-top: 0%;
+}
 
-@media (min-height:1000px) {
+@media (min-height:600px) and (max-height:800px) {
     .jq-toast-single {
-        margin: 95% 0 5px;
+        margin: 3% 0 5px;
+    
+    }
+    .jq-toast-single:first-child {
+        margin: -35px 0 5px;
     }
 }
 
-@media (min-height:1100px) {
+@media (min-height:1000px) and (max-height:1100px) {
+    .jq-toast-single {
+        margin: 5% 0 5px;
+    }
+    .jq-toast-single:first-child {
+        margin: 6.25% 0 5px;
+    }
+}
+
+@media (min-height:1100px) and (max-height:1201px) {
     .jq-toast-single {
         margin: 6.25% 0 5px;
     }

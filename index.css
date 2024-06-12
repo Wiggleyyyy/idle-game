@@ -21,10 +21,18 @@ h1 {
     -webkit-text-fill-color: transparent;
 }
 
+.title {
+    margin-left: -5vh;
+}
+
 p {
     color: #fff;
     font-size: 2vh;
     font-family: Fredoka-regular;
+}
+
+.stats {
+    width: 25vh;
 }
 
 p span {
@@ -43,6 +51,10 @@ label {
 
 button {
     font-family: Fredoka-regular;
+}
+
+.space {
+    width: 5px;
 }
 
 .hide {
@@ -235,6 +247,7 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 40vh;
 }
 
 .modal_content .upgrades_container .upgrades_column hr {
@@ -453,6 +466,28 @@ button {
     background: linear-gradient(150deg, #fbc60e, #fff);
 }
 
+.management_content .column .management_food {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.management_content .column .management_food button {
+    margin: 0.5vh;
+}
+
+.management_content .column .management_food_2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 31vh;
+}
+
+.management_content .column .management_food_2 button {
+    font-size: 1.75vh;
+}
+
 .management_content .column .desc {
     margin: 1vh;
 }
@@ -497,7 +532,7 @@ button {
     background: linear-gradient(150deg, #fbc60e, #fff);
 }
 
-.upgrades .column .stats {
+.upgrades .column .upgrades_stats {
     margin: 1vh;
     font-size: 3vh;
 }
@@ -513,6 +548,65 @@ button {
     align-items: center;
 }
 
-.upgrades .column .storage button {
-    margin: 1vh;
+.upgrades .column .storage * {
+    margin: 0.5vh;
+}
+
+.upgrades .column .storage .storage_upgrade {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.upgrades .column .storage .storage_buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upgrades .column .storage .storage_buttons button {
+    margin: 0.25vh;
+    width: 10vh;
+    font-size: 1.7vh;
+}
+
+.events .column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.events .column hr {
+    width: 31vh;
+}
+
+.events .column .event_notifications {
+    height: 10vh;
+    width: 31vh;
+}
+
+.events .column .event_timer {
+    margin-bottom: 2vh;
+}
+
+.animation {
+    width: 50vh;
+}
+
+@media (min-height: 00px) {
+    .animation {
+        width: 31vh;
+    }
+}
+
+.animation .card_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.animation .card_wrapper * {
+    margin-bottom: 4.5vh;
 }

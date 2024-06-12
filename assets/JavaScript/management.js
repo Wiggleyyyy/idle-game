@@ -10,7 +10,7 @@ let adsmult = 1;
 
 function workerBuy(){
     let totalworkers = workers+cooking_workers+serving_workers+cleaning_workers;
-    let price = (totalworkers+1)*100;
+    let price = (totalworkers+1)*50;
     if (money >= price && totalworkers < workers_max){
         money -= price;
         workers++;
@@ -106,8 +106,9 @@ function workersDoStuff(){
         }
 
         for (let i = 0; i < serving_workers; i++) {
-            if(cooked_food >= 1/15){
+            if(cooked_food >= 1/15 && customers > 0){
                 cooked_food -= 1/15;
+                customers -= 1/15
                 money += 10/15;
             }
         }
@@ -129,7 +130,7 @@ function advertisement(){
         if(ads > 0){
             ads--;
             adsmult = 1.5;
-            document.getElementById('adds_stats').textContent = "Time remaining: "+ formatSeconds(ads); 
+            document.getElementById('adds_stats').textContent = formatSeconds(ads); 
         }
         else{
             adsmult = 1;
@@ -186,5 +187,5 @@ function adsAdd(seconds) {
             break;
     }
     updateGUI();
-    document.getElementById('adds_stats').textContent = "Time remaining: "+ formatSeconds(ads); 
+    document.getElementById('adds_stats').textContent = formatSeconds(ads); 
 }

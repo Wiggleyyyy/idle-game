@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./assets/components/animation.css">
     <link rel="stylesheet" href="./assets/components/toasts.css">
     <link rel="icon" type="image/png" href="./assets/Images/Logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -23,7 +24,7 @@
             <p>Hygiene: <span id="hygiene_value">x%</span></p>
             <p>Customers: <span id="customers_value">x/x</span></p>
         </div>
-        <h1>Idle Cooking</h1>
+        <h1 class="title">Idle Cooking</h1>
         <img class="image_logo" src="./assets/Images/Logo-Photoroom.png" alt="Logo">    
     </div>
 
@@ -55,9 +56,10 @@
                         <button><i class="filler"></i>Stats (10$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for cleaning.</span></span></button>
                     </div>
                 </div>
-                <div class="" id="workers_upgrade_container">
-                    <button class="hide"><i class="filler"></i>Unlock workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock workers that can do tasks automatically.</span></span></button>
+                <div class="" id="workers_unlock_container">
+                    <button><i class="filler"></i>Unlock workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock workers that can do tasks automatically.</span></span></button>
                 </div>
+                <!-- PART 2 OF UPGRADES -->
                 <div class="upgrades_container">
                     <div class="upgrades_column">
                         <button><i class="filler"></i>Workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to cook.</span></span></button>
@@ -68,10 +70,29 @@
                     </div>
                     <div class="upgrades_column">
                         <button><i class="filler"></i>Workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to serve.</span></span></button>
+                        <button><i class="filler"></i>Customers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock upgrades for customer space.</span></button>
                     </div>
                     <div class="upgrades_column">
                         <button><i class="filler"></i>Workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to clean.</span></span></button>
                     </div>
+                </div>
+                <div class="" id="workers_quantity_container">
+                    <button><i class="filler"></i>Workers quantity (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock upgrades for workers quantity.</span></span></button>
+                </div>
+                <!-- PART 3 OF UPGRADES -->
+                <div class="upgrades_container">
+                    <div class="upgrades_column">
+                        <button><i class="filler"></i>Raw food (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock quantity buy for raw food.</span></button>
+                    </div>
+                    <div class="upgrades_column">
+
+                    </div>
+                    <div class="upgrades_column">
+
+                    </div>
+                </div>
+                <div id="events_container">
+                    <button><i class="filler"></i>Events (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock events.</span></button>
                 </div>
             </div>
         </div>
@@ -86,7 +107,7 @@
                     <button id="cooking_button" onclick="startTask('cooking')"><span>Start Cooking</span></button>
                     <div class="card_workers">
                         <button onclick="workerRemove('cooking')"><i class="fa-solid fa-minus"></i></button>
-                        <p id="cooking_workers_label" >Workers: x</p>
+                        <p>Workers:<i class="space"></i><span id="cooking_workers_label" >x</span></p>
                         <button onclick="workerAdd('cooking')"><i class="fa-solid fa-plus"></i></button>
                     </div>
                     <p id="cooking_persec" >x$/sec</p>
@@ -99,7 +120,7 @@
                     <button id="serving_button" onclick="startTask('serving')"><span>Start Serving</span></button>
                     <div class="card_workers" id="card_workers">
                         <button onclick="workerRemove('serving')"><i class="fa-solid fa-minus"></i></button>
-                        <p id="serving_workers_label" >Workers: x</p>
+                        <p>Workers:<i class="space"></i><span id="serving_workers_label" >x</span></p>
                         <button onclick="workerAdd('serving')"><i class="fa-solid fa-plus"></i></button>
                     </div>
                     <p id="serving_persec" >x/sec</p>
@@ -112,7 +133,7 @@
                     <button id="cleaning_button" onclick="startTask('cleaning')"><span>Start Cleaning</span></button>
                     <div class="card_workers">
                         <button onclick="workerRemove('cleaning')"><i class="fa-solid fa-minus"></i></button>
-                        <p id="cleaning_workers_label" >Workers: x</p>
+                        <p>Workers:<i class="space"></i><span id="cleaning_workers_label">x</span></p>
                         <button onclick="workerAdd('cleaning')"><i class="fa-solid fa-plus"></i></button>
                     </div>
                     <p id="cleaning_persec" >x/sec</p>
@@ -127,17 +148,26 @@
                     <div class="management_content">
                         <div class="column">
                             <!-- BUY FOOD -->
-                            <p class="desc">Buy more raw food to cook more.</p>
-                            <button id="raw_food_button" onclick="buyRawfood()">Buy raw food (2$)</button>
-                            <hr>
+                            <div class="management_food" id="management_food">
+                                <p class="desc">Buy more raw food to cook more.</p>
+                                <div class="" id="management_food_1">
+                                    <button id="raw_food_button" onclick="buyRawfood()">Buy raw food (2$)</button>
+                                </div>
+                                <div class="management_food_2" id="management_food_2">
+                                    <button>+1 (2$)</button>
+                                    <button>+5 (10$)</button>
+                                    <button>+10 (20$)</button>
+                                </div>
+                                <hr>
+                            </div>
                             <!-- WORKERS -->
-                            <p id="worker_stats">Workers: x/x</p>
+                            <p>Workers: <span id="worker_stats">x/x</span></p>
                             <p class="desc">A worker can automate tasks <br> for you, like e.g. cooking.</p>
                             <button id="hire_button" onclick="workerBuy()">Hire new worker (x$)</button>
                             <hr>
                             <!-- ADDS -->
-                            <p id="adds_stats">Time remaining: 00:00</p>
-                            <p class="desc">Buy advertisement to get more customers <br> for a period of time.</p>
+                            <p>Time remaining: <span id="adds_stats">00:00</span></p>
+                            <p class="desc" style="margin-left: 3.2vh;">Buy advertisement to get more customers for a period of time.</p>
                             <button class="adds_button" onclick="adsAdd(10)">10 sec (250$)</button>
                             <button class="adds_button" onclick="adsAdd(30)">30 sec (750$)</button>
                             <button class="adds_button" onclick="adsAdd(60)">1 min (1500$)</button>
@@ -154,19 +184,150 @@
                         <hr>
                         <p class="desc">Research to unlock new upgrades.</p>
                         <button class="upgrades_button" onclick="show_modal()">Research</button>
-                        <p class="stats">Upgrades: <span>0/x</span></p>
+                        <p class="upgrades_stats">Upgrades: <span>0/13</span></p>
                         <hr>
                         <label class="sub_title">Storage</label>
-                        <p class="desc">Upgrade the storage for food.</p>
+                        <p class="desc">Upgrade the storage/quantity.</p>
                         <div class="storage">
-                            <button>Raw food +1 (x$)</button>
-                            <button>Cooked food +1 (x$)</button>
+                            <p>Raw food</p>
+                            <div class="storage_buttons">
+                                <button>+1 (5$)</button>
+                                <button>+5 (25$)</button>
+                                <button>+10 (50$)</button>
+                            </div>
+                            <p>Cooked food</p>
+                            <div class="storage_buttons">
+                                <button>+1 (5$)</button>
+                                <button>+5 (25$)</button>
+                                <button>+10 (50$)</button>
+                            </div>
+                            <div class="storage_upgrade">
+                                <p>Customers</p>
+                                    <div class="storage_buttons">
+                                    <button>+1 (20$)</button>
+                                    <button>+5 (100$)</button>
+                                    <button>+10 (200$)</button>
+                                </div>
+                            </div>
+                            <div class="storage_upgrade">
+                                <p>Workers</p>
+                                <button>+1 (x$)</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+        <div class="events">
+            <div class="card_wrapper_large">
+                <div class="card_large">
+                    <div class="column">
+                        <label>Events</label>
+                        <hr>
+                        <div class="event_notifications">
+                            <i class="filler"></i>
+                        </div>
+                        <hr>
+                        <p class="event_timer" id="event_timer">Time remaining: <span>00:00:00</span></p>
+                        <p id="event_info">This is what happens during <br> the event</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="animation">
+            <div class="card_wrapper">
+                <div
+      class="box"
+      style="height:160px; width:160px;">
+      <div class="circle-anim">
+        <svg
+          id="circle"
+          class="circle"
+          xmlns="http://www.w3.org/2000/svg"
+          width="10"
+          height="10"
+          viewBox="0 0 10 10">
+          <!-- triangle -->
+          <g id="circle" fill="#000000">
+            <circle cx="5" cy="5" r="5"></circle>
+        </g>
+        </svg>
+      </div>
+      <div class="square-pan-anim">
+        <svg
+          id="square"
+          class="square-pan"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16">
+          <!-- Square -->
+          <g id="Square" fill="#031322">
+            <rect id="square" x="0" y="0" width="16" height="16"></rect>
+        </g>
+        </svg>
+      </div>
+      <div class="square-anim">
+        <svg
+          id="square"
+          class="square"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16">
+          <!-- Square -->
+          <g id="Square" fill="#031322">
+            <rect id="square" x="0" y="0" width="16" height="16"></rect>
+        </g>
+        </svg>
+      </div>
+      <div class="triangle-pan-anim">
+        <svg
+          id="triangle"
+          class="triangle-pan"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="17"
+          viewBox="0 0 20 17">
+          <!-- triangle -->
+          <g id="Triangle" fill="#031322" stroke="#031322" stroke-width="2">
+            <polygon points="10 2 18 16 2 16"></polygon>
+          </g>
+        </svg>
+      </div>
+      <div class="triangle-anim">
+        <svg
+          id="triangle"
+          class="triangle"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="17"
+          viewBox="0 0 20 17">
+          <!-- triangle -->
+          <g id="Triangle" fill="#031322" stroke="#031322" stroke-width="2">
+            <polygon points="10 2 18 16 2 16"></polygon>
+          </g>
+        </svg>
+      </div>
+      <div class="saucepan-anim">
+        <svg
+          id="saucepan"
+          class="saucepan"
+          xmlns="http://www.w3.org/2000/svg"
+          width="100"
+          height="25"
+          viewBox="0 0 100 25">
+          <!-- Saucepan -->
+          <path
+            id="saucepan"
+            fill="#031322"
+            d="M99.4121763,0 C100.251924,0 100.083975,5.18181818 99.580126,5.18181818 C99.0762771,5.18181818 68.9573128,11.0909091 66.9979006,11.4545455 C65.7914565,11.6784427 64.7335781,12.109126 63.8896044,12.7465955 C61.9907888,19.0105689 60.9627999,22.4120996 60.806011,22.9533898 C60.4672589,24.1228814 58.6605807,25 34.5527194,25 C10.444858,25 8.58172115,25 7.45254731,22.2711864 C6.32337348,19.5423729 0.510480671,3.78672316 0.115269829,2.81214689 C-0.148204066,2.16242938 0.0399915733,1.90254237 0.679856747,2.03248588 L66.6236087,2.03248588 L66.6236087,2.03248588 C67,2.03248588 67.0940978,2.29237288 66.9059022,2.81214689 C66.5592917,3.95355462 66.2274015,5.04663387 65.9102317,6.09138463 C69.7930073,5.30938216 98.622234,0 99.4121763,0 Z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

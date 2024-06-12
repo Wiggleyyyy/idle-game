@@ -1,13 +1,13 @@
 let raw_food = 5;
-let raw_food_max = 25;
+let raw_food_max = 10;
 
 let cooked_food = 0;
-let cooked_food_max = 25;
+let cooked_food_max = 10;
 
 let hygiene = 80;
 let hygiene_max = 100;
 
-let money = 3000;
+let money = 0;
 
 let customers = 0;
 let customers_max = 10;
@@ -24,15 +24,15 @@ function updateGUI() {
             cooked_food = 0;
         }
 
-        document.getElementById('customers_value').textContent = customers + " / " + customers_max;
+        document.getElementById('customers_value').textContent = customers.toFixed(0) + " / " + customers_max;
         document.getElementById('money_value').textContent = money.toFixed(2) + "$";
         document.getElementById('raw_food_value').textContent = raw_food.toFixed(2) + " / " + raw_food_max;
         document.getElementById('cooked_food_value').textContent = cooked_food.toFixed(2) + " / " + cooked_food_max;
         document.getElementById('hygiene_value').textContent = hygiene.toFixed(2) + "%";
-        document.getElementById('worker_stats').textContent = "Workers: "+workers+ " / "+ workers_max;
-        document.getElementById('cooking_workers_label').textContent = "Workers: "+cooking_workers;
-        document.getElementById('serving_workers_label').textContent = "Workers: "+serving_workers;
-        document.getElementById('cleaning_workers_label').textContent = "Workers: "+cleaning_workers; 
+        document.getElementById('worker_stats').textContent = workers+ " / "+ workers_max;
+        document.getElementById('cooking_workers_label').textContent = ` ${cooking_workers}`;
+        document.getElementById('serving_workers_label').textContent = serving_workers;
+        document.getElementById('cleaning_workers_label').textContent = cleaning_workers; 
 
         document.getElementById('cooking_persec').textContent = (1 * cooking_workers / 15).toFixed(2)+" Cooked Food/sec";
         document.getElementById('serving_persec').textContent = (10*serving_workers/15).toFixed(2)+" $/sec";
@@ -50,7 +50,7 @@ function updateGUI() {
                 break;
         }
 
-        let price = (workers+cooking_workers+serving_workers+cleaning_workers+1)*100;
+        let price = (workers+cooking_workers+serving_workers+cleaning_workers+1)*50;
         document.getElementById('hire_button').textContent = `Hire new worker (${price}$)`;
     } catch (error) {
         console.log(error);
@@ -75,7 +75,7 @@ function startTask(task) {
             progressId: 'cooking_progress',
             startText: 'Start Cooking',
             stopText: 'Stop Cooking',
-            checkCondition: () => raw_food >= 0.1 && cooked_food < cooked_food_max,
+            checkCondition: () => raw_food > 0 && cooked_food < cooked_food_max,
             performAction: () => { raw_food -= 0.1; cooked_food += 0.1; }
         },
         serving: {
@@ -83,8 +83,8 @@ function startTask(task) {
             progressId: 'serving_progress',
             startText: 'Start Serving',
             stopText: 'Stop Serving',
-            checkCondition: () => cooked_food >= 0.1,
-            performAction: () => { cooked_food -= 0.1; money += 1; }
+            checkCondition: () => cooked_food > 0 && customers > 0,
+            performAction: () => { cooked_food -= 0.1; money += 1; customers -= 0.1;}
         },
         cleaning: {
             buttonId: 'cleaning_button',
@@ -152,7 +152,10 @@ async function autoCustomers() {
             customers++;
             updateGUI();
         }
-        await wait(20000 - hygiene * 90 * adsmult);
+        if(customers > customers_max){
+            customers = customers_max;
+        }
+        await wait(30000 - hygiene * 90 * adsmult);
     }
 }
 
