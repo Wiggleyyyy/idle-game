@@ -18,7 +18,7 @@
 <body>
     <div class="header">
         <div class="stats">
-            <p>Money: <span id="money_value">x$</span></p>
+            <p>Money: <span id="money_value">$x</span></p>
             <p>Raw food: <span id="raw_food_value">x/x</span></p>
             <p>Cooked food: <span id="cooked_food_value">x/x</span></p>
             <p>Hygiene: <span id="hygiene_value">x%</span></p>
@@ -43,46 +43,46 @@
                     <div class="upgrades_column">
                         <label>Cooking</label>
                         <hr>
-                        <button class="button_lock"><i class="filler"></i>Stats (10$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for cooking.</span></span></button>
+                        <button class="button_lock"><i class="filler"></i>Stats ($10)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for cooking.</span></span></button>
                     </div>
                     <div class="upgrades_column">
                         <p>Serving</p>
                         <hr>
-                        <button><i class="filler"></i>Stats (10$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for serving.</span></span></button>
+                        <button><i class="filler"></i>Stats ($10)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for serving.</span></span></button>
                     </div>
                     <div class="upgrades_column">
                         <p>Cleaning</p>
                         <hr>
-                        <button><i class="filler"></i>Stats (10$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for cleaning.</span></span></button>
+                        <button><i class="filler"></i>Stats ($10)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for cleaning.</span></span></button>
                     </div>
                 </div>
                 <div class="" id="workers_unlock_container">
-                    <button><i class="filler"></i>Unlock workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock workers that can do tasks automatically.</span></span></button>
+                    <button><i class="filler"></i>Unlock workers ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock workers that can do tasks automatically.</span></span></button>
                 </div>
                 <!-- PART 2 OF UPGRADES -->
                 <div class="upgrades_container">
                     <div class="upgrades_column">
-                        <button><i class="filler"></i>Workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to cook.</span></span></button>
+                        <button><i class="filler"></i>Workers ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to cook.</span></span></button>
                         <div class="upgrades_row">
                             <button>Raw food<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock upgrades for raw food storage.</span></span></button>
                             <button>Cooked food <span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unluck upgrades for cooked food storage</span></span></button>
                         </div>
                     </div>
                     <div class="upgrades_column">
-                        <button><i class="filler"></i>Workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to serve.</span></span></button>
-                        <button><i class="filler"></i>Customers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock upgrades for customer space.</span></button>
+                        <button><i class="filler"></i>Workers ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to serve.</span></span></button>
+                        <button><i class="filler"></i>Customers ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock upgrades for customer space.</span></button>
                     </div>
                     <div class="upgrades_column">
-                        <button><i class="filler"></i>Workers (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to clean.</span></span></button>
+                        <button><i class="filler"></i>Workers ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to clean.</span></span></button>
                     </div>
                 </div>
                 <div class="" id="workers_quantity_container">
-                    <button><i class="filler"></i>Workers quantity (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock upgrades for workers quantity.</span></span></button>
+                    <button><i class="filler"></i>Workers quantity ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock upgrades for workers quantity.</span></span></button>
                 </div>
                 <!-- PART 3 OF UPGRADES -->
                 <div class="upgrades_container">
                     <div class="upgrades_column">
-                        <button><i class="filler"></i>Raw food (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock quantity buy for raw food.</span></button>
+                        <button><i class="filler"></i>Raw food ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock quantity buy for raw food.</span></button>
                     </div>
                     <div class="upgrades_column">
 
@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 <div id="events_container">
-                    <button><i class="filler"></i>Events (x$)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock events.</span></button>
+                    <button><i class="filler"></i>Events ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock events.</span></button>
                 </div>
             </div>
         </div>
@@ -104,20 +104,20 @@
                 <div class="card" id="cooking_card">
                     <label>Cook</label>
                     <progress id="cooking_progress" value="0" max="100"></progress>
-                    <button id="cooking_button" onclick="startTask('cooking')"><span>Start Cooking</span></button>
+                    <button id="cooking_button" onclick="cooking_secAddAndRemove()" onclick="overwriteClick(0)"><span>Start Cooking</span></button>
                     <div class="card_workers">
                         <button onclick="workerRemove('cooking')"><i class="fa-solid fa-minus"></i></button>
                         <p>Workers:<i class="space"></i><span id="cooking_workers_label" >x</span></p>
                         <button onclick="workerAdd('cooking')"><i class="fa-solid fa-plus"></i></button>
                     </div>
-                    <p id="cooking_persec" >x$/sec</p>
+                    <p id="cooking_persec" >$x/sec</p>
                 </div>
             </div>
             <div class="card_wrapper" id="serving_card_wrapper">
                 <div class="card" id="serving_card">
                     <label>Serve</label>
                     <progress id="serving_progress" value="0" max="100"></progress>
-                    <button id="serving_button" onclick="startTask('serving')"><span>Start Serving</span></button>
+                    <button id="serving_button" onclick="serving_secAddAndRemove()" onclick="overwriteClick(1)"><span>Start Serving</span></button>
                     <div class="card_workers" id="card_workers">
                         <button onclick="workerRemove('serving')"><i class="fa-solid fa-minus"></i></button>
                         <p>Workers:<i class="space"></i><span id="serving_workers_label" >x</span></p>
@@ -130,7 +130,7 @@
                 <div class="card" id="cleaning_card">
                     <label>Clean</label>
                     <progress id="cleaning_progress" value="0" max="100"></progress>
-                    <button id="cleaning_button" onclick="startTask('cleaning')"><span>Start Cleaning</span></button>
+                    <button id="cleaning_button" onclick="cleaning_secAddAndRemove()" onclick="overwriteClick(2)"><span>Start Cleaning</span></button>
                     <div class="card_workers">
                         <button onclick="workerRemove('cleaning')"><i class="fa-solid fa-minus"></i></button>
                         <p>Workers:<i class="space"></i><span id="cleaning_workers_label">x</span></p>
@@ -151,26 +151,26 @@
                             <div class="management_food" id="management_food">
                                 <p class="desc">Buy more raw food to cook more.</p>
                                 <div class="" id="management_food_1">
-                                    <button id="raw_food_button" onclick="buyRawfood()">Buy raw food (2$)</button>
+                                    <button id="raw_food_button" onclick="buyRawfood(1)">Buy raw food ($2)</button>
                                 </div>
                                 <div class="management_food_2" id="management_food_2">
-                                    <button>+1 (2$)</button>
-                                    <button>+5 (10$)</button>
-                                    <button>+10 (20$)</button>
+                                    <button onclick="buyRawfood(1)">+1 ($2)</button>
+                                    <button onclick="buyRawfood(5)">+5 ($10)</button>
+                                    <button onclick="buyRawfood(10)">+10 ($20)</button>
                                 </div>
                                 <hr>
                             </div>
                             <!-- WORKERS -->
                             <p>Workers: <span id="worker_stats">x/x</span></p>
                             <p class="desc">A worker can automate tasks <br> for you, like e.g. cooking.</p>
-                            <button id="hire_button" onclick="workerBuy()">Hire new worker (x$)</button>
+                            <button id="hire_button" onclick="workerBuy()">Hire new worker ($x)</button>
                             <hr>
                             <!-- ADDS -->
                             <p>Time remaining: <span id="adds_stats">00:00</span></p>
                             <p class="desc" style="margin-left: 3.2vh;">Buy advertisement to get more customers for a period of time.</p>
-                            <button class="adds_button" onclick="adsAdd(10)">10 sec (250$)</button>
-                            <button class="adds_button" onclick="adsAdd(30)">30 sec (750$)</button>
-                            <button class="adds_button" onclick="adsAdd(60)">1 min (1500$)</button>
+                            <button class="adds_button" onclick="adsAdd(10)">10 sec ($250)</button>
+                            <button class="adds_button" onclick="adsAdd(30)">30 sec ($750)</button>
+                            <button class="adds_button" onclick="adsAdd(60)">1 min ($1500)</button>
                         </div>
                     </div>
                 </div>
@@ -191,27 +191,27 @@
                         <div class="storage">
                             <p>Raw food</p>
                             <div class="storage_buttons">
-                                <button>+1 (5$)</button>
-                                <button>+5 (25$)</button>
-                                <button>+10 (50$)</button>
+                                <button onclick="buyRawStorage(1)">+1 ($5)</button>
+                                <button onclick="buyRawStorage(5)">+5 ($25)</button>
+                                <button onclick="buyRawStorage(10)">+10 ($50)</button>
                             </div>
                             <p>Cooked food</p>
                             <div class="storage_buttons">
-                                <button>+1 (5$)</button>
-                                <button>+5 (25$)</button>
-                                <button>+10 (50$)</button>
+                                <button onclick="buyCookedStorage(1)">+1 ($5)</button>
+                                <button onclick="buyCookedStorage(5)">+5 ($25)</button>
+                                <button onclick="buyCookedStorage(10)">+10 ($50)</button>
                             </div>
                             <div class="storage_upgrade">
                                 <p>Customers</p>
                                     <div class="storage_buttons">
-                                    <button>+1 (20$)</button>
-                                    <button>+5 (100$)</button>
-                                    <button>+10 (200$)</button>
+                                    <button onclick="buyCustomerStorage(1)">+1 ($20)</button>
+                                    <button onclick="buyCustomerStorage(5)">+5 ($100)</button>
+                                    <button onclick="buyCustomerStorage(10)">+10 ($200)</button>
                                 </div>
                             </div>
                             <div class="storage_upgrade">
                                 <p>Workers</p>
-                                <button>+1 (x$)</button>
+                                <button id="buy_worker_capacity" onclick="buyWorkerStorage()">+1 ($x)</button>
                             </div>
                         </div>
                     </div>

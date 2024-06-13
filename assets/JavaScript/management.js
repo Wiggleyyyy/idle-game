@@ -27,13 +27,16 @@ function workerAdd(task) {
     if(workers > 0){
         switch(task) {
             case 'cooking':
-              cooking_workers++;
+                    cooking_workers++;
+                    cooking_sec += 0.05
                 break;
             case 'serving':
-              serving_workers++;
+                    serving_workers++;
+                    serving_sec += 0.05
                 break;
             case 'cleaning':
-                cleaning_workers++;
+                    cleaning_workers++;
+                    cleaning_sec += 0.05
                 break;
         }
         workers--;
@@ -52,6 +55,7 @@ function workerRemove(task) {
             if (cooking_workers > 0){
                 cooking_workers--;
                 workers++;
+                cooking_sec -= 0.05
             }
             else{
                 showErrorToast("You dont have any workers to remove");
@@ -61,6 +65,7 @@ function workerRemove(task) {
             if (serving_workers > 0){
                 serving_workers--;
                 workers++;
+                serving_sec -= 0.05
             }
             else{
                 showErrorToast("You dont have any workers to remove");
@@ -70,6 +75,7 @@ function workerRemove(task) {
             if (cleaning_workers > 0){
                 cleaning_workers--;
                 workers++;
+                cleaning_sec -= 0.05
             }
             else{
                 showErrorToast("You dont have any workers to remove");
@@ -80,49 +86,16 @@ function workerRemove(task) {
 
 }
 
-function buyRawfood(){
-    if (money >= 2 && raw_food < raw_food_max){
-        raw_food++;
-        money -= 2;
+function buyRawfood(times){
+    if (money >= times * 2 && raw_food+times < raw_food_max){
+        raw_food += times;
+        money -= times * 2;
         updateGUI()
-        showSuccessToast("Successfully bought Raw Food");
+        showSuccessToast(`Successfully bought ${times} Raw Food`);
     }
     else{
         showErrorToast("Not enough money or max capacity!");
     }
-}
-
-function workersDoStuff(){
-    setInterval(() => {
-        for (let i = 0; i < cooking_workers; i++) {
-            if(raw_food >= 1/15 && cooked_food < cooked_food_max){
-                raw_food -= 1/15;
-                cooked_food += 1/15;
-                hygiene -= 10/15;
-                if (hygiene < 0){
-                    hygiene = 0;
-                }
-            }
-        }
-
-        for (let i = 0; i < serving_workers; i++) {
-            if(cooked_food >= 1/15 && customers > 0){
-                cooked_food -= 1/15;
-                customers -= 1/15
-                money += 10/15;
-            }
-        }
-
-        for (let i = 0; i < cleaning_workers; i++) {
-            if(hygiene < hygiene_max){
-                hygiene += 10 / 15;
-                if(hygiene > 100){
-                    hygiene = 100;
-                }
-            }
-        }
-        updateGUI()
-    }, 1000);
 }
 
 function advertisement(){
@@ -153,38 +126,54 @@ function formatSeconds(seconds) {
 }
 
 function adsAdd(seconds) {
-    
-    switch(seconds) {
-        case 10:
-            if (money >= 250){
-                money -= 250;
-                ads += 10;
-                showSuccessToast("Successfully bought 10 seconds of advertisement");
-            }
-            else{
-                showErrorToast("You don't have enough money");
-            }
-            break;
-        case 30:
-            if (money >= 750){
-                money -= 750;
-                ads += 30;
-                showSuccessToast("Successfully bought 30 seconds of advertisement");
-            }
-            else{
-                showErrorToast("You don't have enough money");
-            }
-            break;
-        case 60:
-            if (money >= 1500){
-                money -= 1500;
-                ads += 60;
-                showSuccessToast("Successfully bought 1 minute of advertisement");
-            }
-            else{
-                showErrorToast("You don't have enough money");
-            }
-            break;
+    if(money >= 25 * seconds){
+        ads += 1 * seconds;
+        money -= 25 * seconds
+        showSuccessToast(`Successfully bought ${seconds} seconds of advertisement`);
+    }
+    updateGUI();
+    document.getElementById('adds_stats').textContent = formatSeconds(ads); 
+}
+
+function buyRawStorage(times) {;
+    let price = 5 * times;
+    if(money >= price){
+        raw_food_max += times;
+        money -= price;
+        showSuccessToast(`Successfully bought ${times} raw storage capacity`);
+    }
+    updateGUI();
+    document.getElementById('adds_stats').textContent = formatSeconds(ads); 
+}
+
+function buyCookedStorage(times) {
+    let price = 5 * times;
+    if(money >= price){
+        cooked_food_max += times;
+        money -= price;
+        showSuccessToast(`Successfully bought ${times} cooked storage capacity`);
+    }
+    updateGUI();
+    document.getElementById('adds_stats').textContent = formatSeconds(ads); 
+}
+
+function buyCustomerStorage(times) {
+    let price = 20 * times;
+    if(money >= price){
+        customers_max += times;
+        money -= price;
+        showSuccessToast(`Successfully bought ${times} customer capacity`);
+    }
+    updateGUI();
+    document.getElementById('adds_stats').textContent = formatSeconds(ads); 
+}
+
+function buyWorkerStorage(times) {
+    let price = (workers_max+1)*75;
+    if(money >= price){
+        workers_max += 1;
+        money -= price;
+        showSuccessToast(`Successfully bought 1 worker capacity`);
     }
     updateGUI();
     document.getElementById('adds_stats').textContent = formatSeconds(ads); 
