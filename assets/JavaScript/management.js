@@ -28,15 +28,15 @@ function workerAdd(task) {
         switch(task) {
             case 'cooking':
                     cooking_workers++;
-                    cooking_sec += 0.05
+                    cooking_sec += 0.05+rebirth*0.005
                 break;
             case 'serving':
                     serving_workers++;
-                    serving_sec += 0.05
+                    serving_sec += 0.05+rebirth*0.005
                 break;
             case 'cleaning':
                     cleaning_workers++;
-                    cleaning_sec += 0.05
+                    cleaning_sec += 0.05+rebirth*0.005
                 break;
         }
         workers--;
@@ -55,7 +55,7 @@ function workerRemove(task) {
             if (cooking_workers > 0){
                 cooking_workers--;
                 workers++;
-                cooking_sec -= 0.05
+                cooking_sec -= 0.05+rebirth*0.005
             }
             else{
                 showErrorToast("You dont have any workers to remove");
@@ -65,7 +65,7 @@ function workerRemove(task) {
             if (serving_workers > 0){
                 serving_workers--;
                 workers++;
-                serving_sec -= 0.05
+                serving_sec -= 0.05+rebirth*0.005
             }
             else{
                 showErrorToast("You dont have any workers to remove");
@@ -75,7 +75,7 @@ function workerRemove(task) {
             if (cleaning_workers > 0){
                 cleaning_workers--;
                 workers++;
-                cleaning_sec -= 0.05
+                cleaning_sec -= 0.05+rebirth*0.005
             }
             else{
                 showErrorToast("You dont have any workers to remove");
@@ -102,7 +102,7 @@ function advertisement(){
     setInterval(() => {
         if(ads > 0){
             ads--;
-            adsmult = 1.5;
+            adsmult = 2.5;
             document.getElementById('adds_stats').textContent = formatSeconds(ads); 
         }
         else{
@@ -126,9 +126,9 @@ function formatSeconds(seconds) {
 }
 
 function adsAdd(seconds) {
-    if(money >= 25 * seconds){
+    if(money >= 15 * seconds){
         ads += 1 * seconds;
-        money -= 25 * seconds
+        money -= 15 * seconds
         showSuccessToast(`Successfully bought ${seconds} seconds of advertisement`);
     }
     updateGUI();

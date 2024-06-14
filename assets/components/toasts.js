@@ -51,16 +51,17 @@ function showInfoToast(msg) {
 }
 
 function showWarningToast(msg) {
-  $.toast({
+  $.toast ({
       heading: 'Warning',
       text: msg,
       icon: 'warning',
       loader: false,
       hideAfter: false,
       allowToastClose: true,
-      position: {
+      position:{
+
         right: 65,
         top: 122.5
-      }
+      },
   });
 }

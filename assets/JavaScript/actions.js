@@ -7,20 +7,23 @@ let cooked_food_max = 10;
 let hygiene = 80;
 let hygiene_max = 100;
 
-let money = 0;
+let money = 1000;
+
+let rebirth = 0;
 
 let customers = 0;
 let customers_max = 10;
 
-let currentTask = false;
+let currentTask = null;
 
 let cooking_sec = 0;
 let serving_sec = 0;
 let cleaning_sec = 0;
 
+let customers_sec = 0;
+
 function updateGUI() {
     try {
-
         document.getElementById('customers_value').textContent = customers + " / " + customers_max;
         document.getElementById('money_value').textContent =  "$" + money;
         document.getElementById('raw_food_value').textContent = raw_food + " / " + raw_food_max;
@@ -34,9 +37,7 @@ function updateGUI() {
 
         document.getElementById('cooking_persec').textContent = cooking_sec.toFixed(2)+" Cooked Food/sec";
         document.getElementById('serving_persec').textContent = "$"+(serving_sec*10).toFixed(2)+" /sec";
-        document.getElementById('cleaning_persec').textContent = cleaning_sec.toFixed(2)+" Hygiene/sec"; 
-
-        
+        document.getElementById('cleaning_persec').textContent = cleaning_sec.toFixed(2)+" Hygiene/sec";
 
         let price = (workers+cooking_workers+serving_workers+cleaning_workers+1)*50;
         document.getElementById('hire_button').textContent = `Hire new worker ($${price})`;
@@ -48,70 +49,53 @@ function updateGUI() {
 function cooking_secAddAndRemove(){
     const button = document.getElementById("cooking_button");
 
-    if(button.textContent === "Start Cooking" && !currentTask){
+    if(button.textContent === "Start Cooking" && currentTask === null){
         button.textContent = "Stop Cooking";
-        cooking_sec += 0.1;
-        currentTask = true;
+        cooking_sec += 0.1+rebirth*0.05;
+        showWarningToast("amogus");
+        currentTask = "cooking_button";
     }
     else if (button.textContent === "Stop Cooking"){
         button.textContent = "Start Cooking";
-        cooking_sec -= 0.1;
-        currentTask = false;
+        cooking_sec -= 0.1+rebirth*0.05;
+        currentTask = null;
     }
 
     updateGUI();
 }
+
 function serving_secAddAndRemove(){
     const button = document.getElementById("serving_button");
 
-    if(button.textContent === "Start Serving" && !currentTask){
+    if(button.textContent === "Start Serving" && currentTask === null){
         button.textContent = "Stop Serving";
-        serving_sec += 0.1;
-        currentTask = true;
+        serving_sec += 0.1+rebirth*0.05;
+        currentTask = "serving_button";
     }
     else if (button.textContent === "Stop Serving"){
         button.textContent = "Start Serving";
-        serving_sec -= 0.1;
-        currentTask = false;
+        serving_sec -= 0.1+rebirth*0.05;
+        currentTask = null;
     }
 
     updateGUI();
 }
 function cleaning_secAddAndRemove(){
-    const button = document.getElementById("Cleaning_button");
+    const button = document.getElementById("cleaning_button");
 
-    if(button.textContent === "Start Cleaning" && !currentTask){
+    if(button.textContent === "Start Cleaning" && currentTask === null){
         button.textContent = "Stop Cleaning";
-        cleaning_sec += 0.1;
-        currentTask = true;
+        cleaning_sec += 0.1+rebirth*0.05;
+        currentTask = "cleaning_button";
     }
     else if (button.textContent === "Stop Cleaning"){
         button.textContent = "Start Cleaning";
-        cleaning_sec -= 0.1;
-        currentTask = false;
+        cleaning_sec -= 0.1+rebirth*0.05;
+        currentTask = null;
     }
 
     updateGUI();
 }
-
-function overwriteClick(id) {
-    switch (id)
-    {
-        case 0:
-            serving_secAddAndRemove();
-            cleaning_secAddAndRemove();
-            break;
-        case 1:
-            cooking_secAddAndRemove();
-            cleaning_secAddAndRemove();
-            break;
-        case 2:
-            cooking_secAddAndRemove();
-            serving_secAddAndRemove();
-            break;
-    }
-}
-
 
 async function AutoCooking() {
     let interval = (1 / cooking_sec * 1000) / 10;
@@ -229,15 +213,29 @@ async function AutoCleaning() {
 }
 
 async function autoCustomers() {
-    while (true) {
-        if (customers < customers_max) {
-            customers++;
+    try{
+        while (true) {
+            if (customers < customers_max) {
+                customers++;
+            }
+            if(customers > customers_max){
+                customers = customers_max;
+            }
+            customers_sec = (30000-rebirth*2000) - hygiene * 110 * adsmult;
+            for (let progress = customers_sec/100; progress > 0; progress--) {
+                customers_sec -= 100;
+                if(customers_sec < 0){
+                    customers_sec = 0;
+                }
+                document.getElementById("customers_time").textContent = customers_sec/1000+" Sec";
+                await wait(100);
+            }
             updateGUI();
         }
-        if(customers > customers_max){
-            customers = customers_max;
-        }
-        await wait(30000 - hygiene * 110 * adsmult);
+        
+    }
+    catch (error){
+        console.log(error);
     }
 }
 

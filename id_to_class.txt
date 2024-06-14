@@ -1,0 +1,26 @@
+example = id(class)
+
+modal / popup:
+    row 1:
+        stats_upgrade_row(upgrades_container)
+    row 2:
+        workers_unlock_container()
+    row 3:
+        cooking_workers_unlock()
+        serving_workers_unlock()
+        serving_workers_unlock()
+    row 4:
+        cooking_food_storage_unlock(upgrades_row)
+        customers_storage_unlock()
+    row 5:
+        raw_food_quantity_buy_unlock()
+    row 6:
+        events_unlock()
+
+main site:
+    Actions:
+        Cooking:
+            
+        Serving:
+
+        Cleaning:

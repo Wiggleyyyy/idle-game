@@ -18,11 +18,11 @@
 <body>
     <div class="header">
         <div class="stats">
-            <p>Money: <span id="money_value">$x</span></p>
-            <p>Raw food: <span id="raw_food_value">x/x</span></p>
-            <p>Cooked food: <span id="cooked_food_value">x/x</span></p>
-            <p>Hygiene: <span id="hygiene_value">x%</span></p>
-            <p>Customers: <span id="customers_value">x/x</span></p>
+            <p>Money: <i class="space"></i><span id="money_value">$x</span></p>
+            <p>Raw food: <i class="space"></i><span id="raw_food_value">x/x</span></p>
+            <p>Cooked food: <i class="space"></i><span id="cooked_food_value">x/x</span></p>
+            <p>Hygiene: <i class="space"></i><span id="hygiene_value">x%</span></p>
+            <p>Customers: <i class="space"></i><span id="customers_value">x/x</span> <i class="space"></i> : <i class="space"></i></i> <span id="customers_time">00:00 sec</span></p>
         </div>
         <h1 class="title">Idle Cooking</h1>
         <img class="image_logo" src="./assets/Images/Logo-Photoroom.png" alt="Logo">    
@@ -39,21 +39,21 @@
                 </div>
                 <hr>
                 <!-- PART 1 OF UPGRADES -->
-                <div class="upgrades_container">
+                <div class="upgrades_container" id="stats_upgrade_row">
                     <div class="upgrades_column">
                         <label>Cooking</label>
                         <hr>
-                        <button class="button_lock"><i class="filler"></i>Stats ($10)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for cooking.</span></span></button>
+                        <button id="cooking_stats_button"><i class="filler"></i>Stats ($10)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for cooking.</span></span></button>
                     </div>
                     <div class="upgrades_column">
                         <p>Serving</p>
                         <hr>
-                        <button><i class="filler"></i>Stats ($10)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for serving.</span></span></button>
+                        <button><i class="filler" id="serving_stats_button"></i>Stats ($10)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for serving.</span></span></button>
                     </div>
                     <div class="upgrades_column">
                         <p>Cleaning</p>
                         <hr>
-                        <button><i class="filler"></i>Stats ($10)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for cleaning.</span></span></button>
+                        <button><i class="filler" id="cleaning_stats_button"></i>Stats ($10)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to display stats for cleaning.</span></span></button>
                     </div>
                 </div>
                 <div class="" id="workers_unlock_container">
@@ -62,27 +62,36 @@
                 <!-- PART 2 OF UPGRADES -->
                 <div class="upgrades_container">
                     <div class="upgrades_column">
-                        <button><i class="filler"></i>Workers ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to cook.</span></span></button>
-                        <div class="upgrades_row">
+                        <div id="cooking_workers_unlock">
+                            <button><i class="filler"></i>Workers ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to cook.</span></span></button>
+                        </div>
+                        <div class="upgrades_row" id="cooking_food_storage_unlock">
                             <button>Raw food<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock upgrades for raw food storage.</span></span></button>
                             <button>Cooked food <span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unluck upgrades for cooked food storage</span></span></button>
                         </div>
                     </div>
                     <div class="upgrades_column">
-                        <button><i class="filler"></i>Workers ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to serve.</span></span></button>
-                        <button><i class="filler"></i>Customers ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock upgrades for customer space.</span></button>
+                        <div class="" id="serving_workers_unlock">
+                            <button><i class="filler"></i>Workers ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to serve.</span></span></button>
+                        </div>
+                        <div id="customers_storage_unlock">
+                            <button><i class="filler"></i>Customers ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock upgrades for customer space.</span></button>
+                        </div>
                     </div>
                     <div class="upgrades_column">
-                        <button><i class="filler"></i>Workers ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to clean.</span></span></button>
+                        <div id="cleaning_workers_unlock">
+                            <button><i class="filler"></i>Workers ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to train workers to clean.</span></span></button>
+                        </div>
                     </div>
                 </div>
                 <div class="" id="workers_quantity_container">
-                    <button><i class="filler"></i>Workers quantity ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock upgrades for workers quantity.</span></span></button>
                 </div>
                 <!-- PART 3 OF UPGRADES -->
                 <div class="upgrades_container">
                     <div class="upgrades_column">
-                        <button><i class="filler"></i>Raw food ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock quantity buy for raw food.</span></button>
+                        <div id="raw_food_quantity_buy_unlock">
+                            <button><i class="filler"></i>Raw food ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock quantity buy for raw food.</span></button>
+                        </div>
                     </div>
                     <div class="upgrades_column">
 
@@ -91,7 +100,7 @@
 
                     </div>
                 </div>
-                <div id="events_container">
+                <div id="events_unlock">
                     <button><i class="filler"></i>Events ($x)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock events.</span></button>
                 </div>
             </div>
@@ -161,16 +170,16 @@
                                 <hr>
                             </div>
                             <!-- WORKERS -->
-                            <p>Workers: <span id="worker_stats">x/x</span></p>
+                            <p>Workers: <i class="space"></i><span id="worker_stats">x/x</span></p>
                             <p class="desc">A worker can automate tasks <br> for you, like e.g. cooking.</p>
                             <button id="hire_button" onclick="workerBuy()">Hire new worker ($x)</button>
                             <hr>
                             <!-- ADDS -->
-                            <p>Time remaining: <span id="adds_stats">00:00</span></p>
+                            <p>Time remaining: <i class="space"></i><span id="adds_stats">00:00</span></p>
                             <p class="desc" style="margin-left: 3.2vh;">Buy advertisement to get more customers for a period of time.</p>
-                            <button class="adds_button" onclick="adsAdd(10)">10 sec ($250)</button>
-                            <button class="adds_button" onclick="adsAdd(30)">30 sec ($750)</button>
-                            <button class="adds_button" onclick="adsAdd(60)">1 min ($1500)</button>
+                            <button class="adds_button" onclick="adsAdd(10)">10 sec ($150)</button>
+                            <button class="adds_button" onclick="adsAdd(30)">30 sec ($450)</button>
+                            <button class="adds_button" onclick="adsAdd(60)">1 min ($900)</button>
                         </div>
                     </div>
                 </div>
@@ -184,7 +193,7 @@
                         <hr>
                         <p class="desc">Research to unlock new upgrades.</p>
                         <button class="upgrades_button" onclick="show_modal()">Research</button>
-                        <p class="upgrades_stats">Upgrades: <span>0/13</span></p>
+                        <p class="upgrades_stats">Upgrades: <i class="space"></i><span>0/13</span></p>
                         <hr>
                         <label class="sub_title">Storage</label>
                         <p class="desc">Upgrade the storage/quantity.</p>
@@ -219,17 +228,26 @@
             </div>
         </div>
         <div class="events">
-            <div class="card_wrapper_large">
-                <div class="card_large">
+            <div class="card_medium_wrapper">
+                <div class="card_medium">
                     <div class="column">
                         <label>Events</label>
                         <hr>
                         <div class="event_notifications">
-                            <i class="filler"></i>
+                            
                         </div>
                         <hr>
-                        <p class="event_timer" id="event_timer">Time remaining: <span>00:00:00</span></p>
+                        <p class="event_timer" id="event_timer">Time remaining: <i class="space"></i><span>00:00:00</span></p>
                         <p id="event_info">This is what happens during <br> the event</p>
+                    </div>
+                </div>
+            </div>
+            <div class="rebirth_card_wrapper">
+                <div class="rebirth_card">
+                    <label>Rebirth</label>
+                    <hr>
+                    <div class="button_holder">
+                        <button>xxxxxx$</button>
                     </div>
                 </div>
             </div>
@@ -237,95 +255,279 @@
         <div class="animation">
             <div class="card_wrapper">
                 <div
-      class="box"
-      style="height:160px; width:160px;">
-      <div class="circle-anim">
-        <svg
-          id="circle"
-          class="circle"
-          xmlns="http://www.w3.org/2000/svg"
-          width="10"
-          height="10"
-          viewBox="0 0 10 10">
-          <!-- triangle -->
-          <g id="circle" fill="#000000">
-            <circle cx="5" cy="5" r="5"></circle>
-        </g>
-        </svg>
-      </div>
-      <div class="square-pan-anim">
-        <svg
-          id="square"
-          class="square-pan"
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 16 16">
-          <!-- Square -->
-          <g id="Square" fill="#031322">
-            <rect id="square" x="0" y="0" width="16" height="16"></rect>
-        </g>
-        </svg>
-      </div>
-      <div class="square-anim">
-        <svg
-          id="square"
-          class="square"
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 16 16">
-          <!-- Square -->
-          <g id="Square" fill="#031322">
-            <rect id="square" x="0" y="0" width="16" height="16"></rect>
-        </g>
-        </svg>
-      </div>
-      <div class="triangle-pan-anim">
-        <svg
-          id="triangle"
-          class="triangle-pan"
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="17"
-          viewBox="0 0 20 17">
-          <!-- triangle -->
-          <g id="Triangle" fill="#031322" stroke="#031322" stroke-width="2">
-            <polygon points="10 2 18 16 2 16"></polygon>
-          </g>
-        </svg>
-      </div>
-      <div class="triangle-anim">
-        <svg
-          id="triangle"
-          class="triangle"
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="17"
-          viewBox="0 0 20 17">
-          <!-- triangle -->
-          <g id="Triangle" fill="#031322" stroke="#031322" stroke-width="2">
-            <polygon points="10 2 18 16 2 16"></polygon>
-          </g>
-        </svg>
-      </div>
-      <div class="saucepan-anim">
-        <svg
-          id="saucepan"
-          class="saucepan"
-          xmlns="http://www.w3.org/2000/svg"
-          width="100"
-          height="25"
-          viewBox="0 0 100 25">
-          <!-- Saucepan -->
-          <path
-            id="saucepan"
-            fill="#031322"
-            d="M99.4121763,0 C100.251924,0 100.083975,5.18181818 99.580126,5.18181818 C99.0762771,5.18181818 68.9573128,11.0909091 66.9979006,11.4545455 C65.7914565,11.6784427 64.7335781,12.109126 63.8896044,12.7465955 C61.9907888,19.0105689 60.9627999,22.4120996 60.806011,22.9533898 C60.4672589,24.1228814 58.6605807,25 34.5527194,25 C10.444858,25 8.58172115,25 7.45254731,22.2711864 C6.32337348,19.5423729 0.510480671,3.78672316 0.115269829,2.81214689 C-0.148204066,2.16242938 0.0399915733,1.90254237 0.679856747,2.03248588 L66.6236087,2.03248588 L66.6236087,2.03248588 C67,2.03248588 67.0940978,2.29237288 66.9059022,2.81214689 C66.5592917,3.95355462 66.2274015,5.04663387 65.9102317,6.09138463 C69.7930073,5.30938216 98.622234,0 99.4121763,0 Z"
-          ></path>
-        </svg>
-      </div>
-    </div>
+                    class="box"
+                    style="height:160px; width:160px;">
+                    <div class="circle-anim">
+                        <svg
+                        id="circle"
+                        class="circle"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="10"
+                        height="10"
+                        viewBox="0 0 10 10">
+                        <!-- triangle -->
+                        <g id="circle" fill="#031322">
+                            <circle cx="5" cy="5" r="5"></circle>
+                        </g>
+                        </svg>
+                    </div>
+                <div class="square-pan-anim">
+                    <svg
+                    id="square"
+                    class="square-pan"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16">
+                    <!-- Square -->
+                    <g id="Square" fill="#031322">
+                        <rect id="square" x="0" y="0" width="16" height="16"></rect>
+                    </g>
+                    </svg>
+                </div>
+                <div class="square-anim">
+                    <svg
+                    id="square"
+                    class="square"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16">
+                    <!-- Square -->
+                    <g id="Square" fill="#031322">
+                        <rect id="square" x="0" y="0" width="16" height="16"></rect>
+                    </g>
+                    </svg>
+                </div>
+                <div class="triangle-pan-anim">
+                    <svg
+                    id="triangle"
+                    class="triangle-pan"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="17"
+                    viewBox="0 0 20 17">
+                    <!-- triangle -->
+                    <g id="Triangle" fill="#031322" stroke="#031322" stroke-width="2">
+                        <polygon points="10 2 18 16 2 16"></polygon>
+                    </g>
+                    </svg>
+                </div>
+                <div class="triangle-anim">
+                    <svg
+                    id="triangle"
+                    class="triangle"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="17"
+                    viewBox="0 0 20 17">
+                    <!-- triangle -->
+                    <g id="Triangle" fill="#031322" stroke="#031322" stroke-width="2">
+                        <polygon points="10 2 18 16 2 16"></polygon>
+                    </g>
+                    </svg>
+                </div>
+                <div class="saucepan-anim">
+                    <svg
+                    id="saucepan"
+                    class="saucepan"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="100"
+                    height="25"
+                    viewBox="0 0 100 25">
+                    <!-- Saucepan -->
+                    <path
+                        id="saucepan"
+                        fill="#031322"
+                        d="M99.4121763,0 C100.251924,0 100.083975,5.18181818 99.580126,5.18181818 C99.0762771,5.18181818 68.9573128,11.0909091 66.9979006,11.4545455 C65.7914565,11.6784427 64.7335781,12.109126 63.8896044,12.7465955 C61.9907888,19.0105689 60.9627999,22.4120996 60.806011,22.9533898 C60.4672589,24.1228814 58.6605807,25 34.5527194,25 C10.444858,25 8.58172115,25 7.45254731,22.2711864 C6.32337348,19.5423729 0.510480671,3.78672316 0.115269829,2.81214689 C-0.148204066,2.16242938 0.0399915733,1.90254237 0.679856747,2.03248588 L66.6236087,2.03248588 L66.6236087,2.03248588 C67,2.03248588 67.0940978,2.29237288 66.9059022,2.81214689 C66.5592917,3.95355462 66.2274015,5.04663387 65.9102317,6.09138463 C69.7930073,5.30938216 98.622234,0 99.4121763,0 Z"
+                    ></path>
+                    </svg>
+                </div>
+                </div>
+            </div>
+            <div class="card_wrapper">
+                <div
+                    class="box"
+                    style="height:160px; width:160px;">
+                    <div class="circle-anim">
+                        <svg
+                        id="circle"
+                        class="circle"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="10"
+                        height="10"
+                        viewBox="0 0 10 10">
+                        <!-- triangle -->
+                        <g id="circle" fill="#031322">
+                            <circle cx="5" cy="5" r="5"></circle>
+                        </g>
+                        </svg>
+                    </div>
+                <div class="square-pan-anim">
+                    <svg
+                    id="square"
+                    class="square-pan"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16">
+                    <!-- Square -->
+                    <g id="Square" fill="#031322">
+                        <rect id="square" x="0" y="0" width="16" height="16"></rect>
+                    </g>
+                    </svg>
+                </div>
+                <div class="square-anim">
+                    <svg
+                    id="square"
+                    class="square"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16">
+                    <!-- Square -->
+                    <g id="Square" fill="#031322">
+                        <rect id="square" x="0" y="0" width="16" height="16"></rect>
+                    </g>
+                    </svg>
+                </div>
+                <div class="triangle-pan-anim">
+                    <svg
+                    id="triangle"
+                    class="triangle-pan"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="17"
+                    viewBox="0 0 20 17">
+                    <!-- triangle -->
+                    <g id="Triangle" fill="#031322" stroke="#031322" stroke-width="2">
+                        <polygon points="10 2 18 16 2 16"></polygon>
+                    </g>
+                    </svg>
+                </div>
+                <div class="triangle-anim">
+                    <svg
+                    id="triangle"
+                    class="triangle"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="17"
+                    viewBox="0 0 20 17">
+                    <!-- triangle -->
+                    <g id="Triangle" fill="#031322" stroke="#031322" stroke-width="2">
+                        <polygon points="10 2 18 16 2 16"></polygon>
+                    </g>
+                    </svg>
+                </div>
+                <div class="saucepan-anim">
+                    <svg
+                    id="saucepan"
+                    class="saucepan"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="100"
+                    height="25"
+                    viewBox="0 0 100 25">
+                    <!-- Saucepan -->
+                    <path
+                        id="saucepan"
+                        fill="#031322"
+                        d="M99.4121763,0 C100.251924,0 100.083975,5.18181818 99.580126,5.18181818 C99.0762771,5.18181818 68.9573128,11.0909091 66.9979006,11.4545455 C65.7914565,11.6784427 64.7335781,12.109126 63.8896044,12.7465955 C61.9907888,19.0105689 60.9627999,22.4120996 60.806011,22.9533898 C60.4672589,24.1228814 58.6605807,25 34.5527194,25 C10.444858,25 8.58172115,25 7.45254731,22.2711864 C6.32337348,19.5423729 0.510480671,3.78672316 0.115269829,2.81214689 C-0.148204066,2.16242938 0.0399915733,1.90254237 0.679856747,2.03248588 L66.6236087,2.03248588 L66.6236087,2.03248588 C67,2.03248588 67.0940978,2.29237288 66.9059022,2.81214689 C66.5592917,3.95355462 66.2274015,5.04663387 65.9102317,6.09138463 C69.7930073,5.30938216 98.622234,0 99.4121763,0 Z"
+                    ></path>
+                    </svg>
+                </div>
+                </div>
+            </div>
+            <div class="card_wrapper">
+                <div
+                    class="box"
+                    style="height:160px; width:160px;">
+                    <div class="circle-anim">
+                        <svg
+                        id="circle"
+                        class="circle"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="10"
+                        height="10"
+                        viewBox="0 0 10 10">
+                        <!-- triangle -->
+                        <g id="circle" fill="#031322">
+                            <circle cx="5" cy="5" r="5"></circle>
+                        </g>
+                        </svg>
+                    </div>
+                <div class="square-pan-anim">
+                    <svg
+                    id="square"
+                    class="square-pan"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16">
+                    <!-- Square -->
+                    <g id="Square" fill="#031322">
+                        <rect id="square" x="0" y="0" width="16" height="16"></rect>
+                    </g>
+                    </svg>
+                </div>
+                <div class="square-anim">
+                    <svg
+                    id="square"
+                    class="square"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16">
+                    <!-- Square -->
+                    <g id="Square" fill="#031322">
+                        <rect id="square" x="0" y="0" width="16" height="16"></rect>
+                    </g>
+                    </svg>
+                </div>
+                <div class="triangle-pan-anim">
+                    <svg
+                    id="triangle"
+                    class="triangle-pan"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="17"
+                    viewBox="0 0 20 17">
+                    <!-- triangle -->
+                    <g id="Triangle" fill="#031322" stroke="#031322" stroke-width="2">
+                        <polygon points="10 2 18 16 2 16"></polygon>
+                    </g>
+                    </svg>
+                </div>
+                <div class="triangle-anim">
+                    <svg
+                    id="triangle"
+                    class="triangle"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="17"
+                    viewBox="0 0 20 17">
+                    <!-- triangle -->
+                    <g id="Triangle" fill="#031322" stroke="#031322" stroke-width="2">
+                        <polygon points="10 2 18 16 2 16"></polygon>
+                    </g>
+                    </svg>
+                </div>
+                <div class="saucepan-anim">
+                    <svg
+                    id="saucepan"
+                    class="saucepan"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="100"
+                    height="25"
+                    viewBox="0 0 100 25">
+                    <!-- Saucepan -->
+                    <path
+                        id="saucepan"
+                        fill="#031322"
+                        d="M99.4121763,0 C100.251924,0 100.083975,5.18181818 99.580126,5.18181818 C99.0762771,5.18181818 68.9573128,11.0909091 66.9979006,11.4545455 C65.7914565,11.6784427 64.7335781,12.109126 63.8896044,12.7465955 C61.9907888,19.0105689 60.9627999,22.4120996 60.806011,22.9533898 C60.4672589,24.1228814 58.6605807,25 34.5527194,25 C10.444858,25 8.58172115,25 7.45254731,22.2711864 C6.32337348,19.5423729 0.510480671,3.78672316 0.115269829,2.81214689 C-0.148204066,2.16242938 0.0399915733,1.90254237 0.679856747,2.03248588 L66.6236087,2.03248588 L66.6236087,2.03248588 C67,2.03248588 67.0940978,2.29237288 66.9059022,2.81214689 C66.5592917,3.95355462 66.2274015,5.04663387 65.9102317,6.09138463 C69.7930073,5.30938216 98.622234,0 99.4121763,0 Z"
+                    ></path>
+                    </svg>
+                </div>
+                </div>
             </div>
         </div>
     </div>
