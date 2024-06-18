@@ -20,7 +20,37 @@ modal / popup:
 main site:
     Actions:
         Cooking:
-            
+            "stats" = cooking_card_stats()
+            "workers" = cooking_card_workers(card_workers)
         Serving:
-
+            serving_card_wrapper(card_wrapper)
+            "stats" = serving_card_stats()
+            "workers" = serving_card_stats(card_workers)
         Cleaning:
+            cleaning_card_wrapper(card_wrapper)
+            "stats" = cleaning_card_stats()
+            "workers" = cleaning_card_workers(card_workers)
+    Management:
+        management_card()
+        Raw food:
+            Management_food_1()
+            Management_food_2()
+        Workers:
+            workers_upgrade(workers_upgrade)
+        Adds:
+            adds_upgrade(adds_upgrade)
+    Upgrades:
+        upgrades_card(upgrades)
+        Research:
+            upgrades_research(upgrades_research)
+        Storage:
+            "raw food" = storage_raw_food_upgrade(storage_raw_food_upgrade)
+            "cooked food" = upgrades_cooked_food_upgrade(upgrades_cooked_food_upgrade)
+            "customers" = customers_storage_upgrade(storage_upgrade)
+            "Workers" = upgrades_workers(storage_upgrade)
+    Events:
+        events_card(events)
+            idk lol
+            det skal laves så den ændre størrelse alt efter om rebirth bliver vist eller ikke
+    Rebirth:
+        rebirth_card(rebirth_card_wrapper)

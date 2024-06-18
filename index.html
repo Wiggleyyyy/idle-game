@@ -114,12 +114,14 @@
                     <label>Cook</label>
                     <progress id="cooking_progress" value="0" max="100"></progress>
                     <button id="cooking_button" onclick="cooking_secAddAndRemove()" onclick="overwriteClick(0)"><span>Start Cooking</span></button>
-                    <div class="card_workers">
+                    <div class="card_workers" id="cooking_card_workers">
                         <button onclick="workerRemove('cooking')"><i class="fa-solid fa-minus"></i></button>
                         <p>Workers:<i class="space"></i><span id="cooking_workers_label" >x</span></p>
                         <button onclick="workerAdd('cooking')"><i class="fa-solid fa-plus"></i></button>
                     </div>
-                    <p id="cooking_persec" >$x/sec</p>
+                    <div id="cooking_card_stats">
+                        <p id="cooking_persec" >$x/sec</p>
+                    </div>
                 </div>
             </div>
             <div class="card_wrapper" id="serving_card_wrapper">
@@ -127,12 +129,14 @@
                     <label>Serve</label>
                     <progress id="serving_progress" value="0" max="100"></progress>
                     <button id="serving_button" onclick="serving_secAddAndRemove()" onclick="overwriteClick(1)"><span>Start Serving</span></button>
-                    <div class="card_workers" id="card_workers">
+                    <div class="card_workers" id="serving_card_workers">
                         <button onclick="workerRemove('serving')"><i class="fa-solid fa-minus"></i></button>
                         <p>Workers:<i class="space"></i><span id="serving_workers_label" >x</span></p>
                         <button onclick="workerAdd('serving')"><i class="fa-solid fa-plus"></i></button>
                     </div>
-                    <p id="serving_persec" >x/sec</p>
+                    <div id="serving_card_stats">
+                        <p id="serving_persec" >x/sec</p>
+                    </div>
                 </div>
             </div>
             <div class="card_wrapper" id="cleaning_card_wrapper">
@@ -140,16 +144,18 @@
                     <label>Clean</label>
                     <progress id="cleaning_progress" value="0" max="100"></progress>
                     <button id="cleaning_button" onclick="cleaning_secAddAndRemove()" onclick="overwriteClick(2)"><span>Start Cleaning</span></button>
-                    <div class="card_workers">
+                    <div class="card_workers" id="cleaning_card_workers">
                         <button onclick="workerRemove('cleaning')"><i class="fa-solid fa-minus"></i></button>
                         <p>Workers:<i class="space"></i><span id="cleaning_workers_label">x</span></p>
                         <button onclick="workerAdd('cleaning')"><i class="fa-solid fa-plus"></i></button>
                     </div>
-                    <p id="cleaning_persec" >x/sec</p>
+                    <div id="cleaning_card_stats">
+                        <p id="cleaning_persec" >x/sec</p>
+                    </div>
                 </div>
             </div>        
         </div>
-        <div class="management">
+        <div class="management" id="management_card">
             <div class="card_wrapper_large">
                 <div class="card_large">
                     <label>Management</label>
@@ -170,64 +176,76 @@
                                 <hr>
                             </div>
                             <!-- WORKERS -->
-                            <p>Workers: <i class="space"></i><span id="worker_stats">x/x</span></p>
-                            <p class="desc">A worker can automate tasks <br> for you, like e.g. cooking.</p>
-                            <button id="hire_button" onclick="workerBuy()">Hire new worker ($x)</button>
-                            <hr>
+                            <div class="workers_upgrade" id="workers_upgrade">
+                                <p>Workers: <i class="space"></i><span id="worker_stats">x/x</span></p>
+                                <p class="desc">A worker can automate tasks <br> for you, like e.g. cooking.</p>
+                                <button id="hire_button" onclick="workerBuy()">Hire new worker ($x)</button>
+                                <hr>
+                            </div>
                             <!-- ADDS -->
-                            <p>Time remaining: <i class="space"></i><span id="adds_stats">00:00</span></p>
-                            <p class="desc" style="margin-left: 3.2vh;">Buy advertisement to get more customers for a period of time.</p>
-                            <button class="adds_button" onclick="adsAdd(10)">10 sec ($150)</button>
-                            <button class="adds_button" onclick="adsAdd(30)">30 sec ($450)</button>
-                            <button class="adds_button" onclick="adsAdd(60)">1 min ($900)</button>
+                            <div class="adds_upgrade" id="adds_upgrade">
+                                <p>Time remaining: <i class="space"></i><span id="adds_stats">00:00</span></p>
+                                <p class="desc" style="margin-left: 3.2vh;">Buy advertisement to get more customers for a period of time.</p>
+                                <button class="adds_button" onclick="adsAdd(10)">10 sec ($150)</button>
+                                <button class="adds_button" onclick="adsAdd(30)">30 sec ($450)</button>
+                                <button class="adds_button" onclick="adsAdd(60)">1 min ($900)</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="upgrades">
+        <div class="upgrades" id="upgrades_card">
             <div class="card_wrapper_large">
                 <div class="card_large">
                     <div class="column">
                         <label>Upgrades</label>
                         <hr>
-                        <p class="desc">Research to unlock new upgrades.</p>
-                        <button class="upgrades_button" onclick="show_modal()">Research</button>
-                        <p class="upgrades_stats">Upgrades: <i class="space"></i><span>0/13</span></p>
-                        <hr>
-                        <label class="sub_title">Storage</label>
-                        <p class="desc">Upgrade the storage/quantity.</p>
-                        <div class="storage">
-                            <p>Raw food</p>
-                            <div class="storage_buttons">
-                                <button onclick="buyRawStorage(1)">+1 ($5)</button>
-                                <button onclick="buyRawStorage(5)">+5 ($25)</button>
-                                <button onclick="buyRawStorage(10)">+10 ($50)</button>
-                            </div>
-                            <p>Cooked food</p>
-                            <div class="storage_buttons">
-                                <button onclick="buyCookedStorage(1)">+1 ($5)</button>
-                                <button onclick="buyCookedStorage(5)">+5 ($25)</button>
-                                <button onclick="buyCookedStorage(10)">+10 ($50)</button>
-                            </div>
-                            <div class="storage_upgrade">
-                                <p>Customers</p>
+                        <div class="upgrades_research" id="upgrades_research">
+                            <p class="desc">Research to unlock new upgrades.</p>
+                            <button class="upgrades_button" onclick="show_modal()">Research</button>
+                            <p class="upgrades_stats">Upgrades: <i class="space"></i><span>0/13</span></p>
+                        </div>
+                        <div class="upgrades_storage" id="upgrades_storage">
+                            <hr>
+                            <label class="sub_title">Storage</label>
+                            <p class="desc">Upgrade the storage/quantity.</p>
+                            <div class="storage">
+                                <div class="storage_raw_food_upgrade" id="storage_raw_food_upgrade">
+                                    <p>Raw food</p>
                                     <div class="storage_buttons">
-                                    <button onclick="buyCustomerStorage(1)">+1 ($20)</button>
-                                    <button onclick="buyCustomerStorage(5)">+5 ($100)</button>
-                                    <button onclick="buyCustomerStorage(10)">+10 ($200)</button>
+                                        <button onclick="buyRawStorage(1)">+1 ($5)</button>
+                                        <button onclick="buyRawStorage(5)">+5 ($25)</button>
+                                        <button onclick="buyRawStorage(10)">+10 ($50)</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="storage_upgrade">
-                                <p>Workers</p>
-                                <button id="buy_worker_capacity" onclick="buyWorkerStorage()">+1 ($x)</button>
+                                <div class="upgrades_cooked_food_upgrade" id="upgrades_cooked_food_upgrade">
+                                    <p>Cooked food</p>
+                                    <div class="storage_buttons">
+                                        <button onclick="buyCookedStorage(1)">+1 ($5)</button>
+                                        <button onclick="buyCookedStorage(5)">+5 ($25)</button>
+                                        <button onclick="buyCookedStorage(10)">+10 ($50)</button>
+                                    </div>
+                                </div>
+                                <div class="storage_upgrade" id="customers_storage_upgrade">
+                                    <p>Customers</p>
+                                        <div class="storage_buttons">
+                                        <button onclick="buyCustomerStorage(1)">+1 ($20)</button>
+                                        <button onclick="buyCustomerStorage(5)">+5 ($100)</button>
+                                        <button onclick="buyCustomerStorage(10)">+10 ($200)</button>
+                                    </div>
+                                </div>
+                                <div class="storage_upgrade" id="upgrades_workers">
+                                    <p>Workers</p>
+                                    <button id="buy_worker_capacity" onclick="buyWorkerStorage()">+1 ($x)</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="events">
+        <div class="events" id="events_card">
             <div class="card_medium_wrapper">
                 <div class="card_medium">
                     <div class="column">
@@ -242,7 +260,7 @@
                     </div>
                 </div>
             </div>
-            <div class="rebirth_card_wrapper">
+            <div class="rebirth_card_wrapper" id="rebirth_card">
                 <div class="rebirth_card">
                     <label>Rebirth</label>
                     <hr>
@@ -346,187 +364,11 @@
                 </div>
             </div>
             <div class="card_wrapper">
-                <div
-                    class="box"
-                    style="height:160px; width:160px;">
-                    <div class="circle-anim">
-                        <svg
-                        id="circle"
-                        class="circle"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="10"
-                        height="10"
-                        viewBox="0 0 10 10">
-                        <!-- triangle -->
-                        <g id="circle" fill="#031322">
-                            <circle cx="5" cy="5" r="5"></circle>
-                        </g>
-                        </svg>
-                    </div>
-                <div class="square-pan-anim">
-                    <svg
-                    id="square"
-                    class="square-pan"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16">
-                    <!-- Square -->
-                    <g id="Square" fill="#031322">
-                        <rect id="square" x="0" y="0" width="16" height="16"></rect>
-                    </g>
-                    </svg>
-                </div>
-                <div class="square-anim">
-                    <svg
-                    id="square"
-                    class="square"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16">
-                    <!-- Square -->
-                    <g id="Square" fill="#031322">
-                        <rect id="square" x="0" y="0" width="16" height="16"></rect>
-                    </g>
-                    </svg>
-                </div>
-                <div class="triangle-pan-anim">
-                    <svg
-                    id="triangle"
-                    class="triangle-pan"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="17"
-                    viewBox="0 0 20 17">
-                    <!-- triangle -->
-                    <g id="Triangle" fill="#031322" stroke="#031322" stroke-width="2">
-                        <polygon points="10 2 18 16 2 16"></polygon>
-                    </g>
-                    </svg>
-                </div>
-                <div class="triangle-anim">
-                    <svg
-                    id="triangle"
-                    class="triangle"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="17"
-                    viewBox="0 0 20 17">
-                    <!-- triangle -->
-                    <g id="Triangle" fill="#031322" stroke="#031322" stroke-width="2">
-                        <polygon points="10 2 18 16 2 16"></polygon>
-                    </g>
-                    </svg>
-                </div>
-                <div class="saucepan-anim">
-                    <svg
-                    id="saucepan"
-                    class="saucepan"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="100"
-                    height="25"
-                    viewBox="0 0 100 25">
-                    <!-- Saucepan -->
-                    <path
-                        id="saucepan"
-                        fill="#031322"
-                        d="M99.4121763,0 C100.251924,0 100.083975,5.18181818 99.580126,5.18181818 C99.0762771,5.18181818 68.9573128,11.0909091 66.9979006,11.4545455 C65.7914565,11.6784427 64.7335781,12.109126 63.8896044,12.7465955 C61.9907888,19.0105689 60.9627999,22.4120996 60.806011,22.9533898 C60.4672589,24.1228814 58.6605807,25 34.5527194,25 C10.444858,25 8.58172115,25 7.45254731,22.2711864 C6.32337348,19.5423729 0.510480671,3.78672316 0.115269829,2.81214689 C-0.148204066,2.16242938 0.0399915733,1.90254237 0.679856747,2.03248588 L66.6236087,2.03248588 L66.6236087,2.03248588 C67,2.03248588 67.0940978,2.29237288 66.9059022,2.81214689 C66.5592917,3.95355462 66.2274015,5.04663387 65.9102317,6.09138463 C69.7930073,5.30938216 98.622234,0 99.4121763,0 Z"
-                    ></path>
-                    </svg>
-                </div>
-                </div>
+                <img id="serving_gif" src="./assets/gifs/serving/serving.png" alt="">
             </div>
             <div class="card_wrapper">
-                <div
-                    class="box"
-                    style="height:160px; width:160px;">
-                    <div class="circle-anim">
-                        <svg
-                        id="circle"
-                        class="circle"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="10"
-                        height="10"
-                        viewBox="0 0 10 10">
-                        <!-- triangle -->
-                        <g id="circle" fill="#031322">
-                            <circle cx="5" cy="5" r="5"></circle>
-                        </g>
-                        </svg>
-                    </div>
-                <div class="square-pan-anim">
-                    <svg
-                    id="square"
-                    class="square-pan"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16">
-                    <!-- Square -->
-                    <g id="Square" fill="#031322">
-                        <rect id="square" x="0" y="0" width="16" height="16"></rect>
-                    </g>
-                    </svg>
-                </div>
-                <div class="square-anim">
-                    <svg
-                    id="square"
-                    class="square"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16">
-                    <!-- Square -->
-                    <g id="Square" fill="#031322">
-                        <rect id="square" x="0" y="0" width="16" height="16"></rect>
-                    </g>
-                    </svg>
-                </div>
-                <div class="triangle-pan-anim">
-                    <svg
-                    id="triangle"
-                    class="triangle-pan"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="17"
-                    viewBox="0 0 20 17">
-                    <!-- triangle -->
-                    <g id="Triangle" fill="#031322" stroke="#031322" stroke-width="2">
-                        <polygon points="10 2 18 16 2 16"></polygon>
-                    </g>
-                    </svg>
-                </div>
-                <div class="triangle-anim">
-                    <svg
-                    id="triangle"
-                    class="triangle"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="17"
-                    viewBox="0 0 20 17">
-                    <!-- triangle -->
-                    <g id="Triangle" fill="#031322" stroke="#031322" stroke-width="2">
-                        <polygon points="10 2 18 16 2 16"></polygon>
-                    </g>
-                    </svg>
-                </div>
-                <div class="saucepan-anim">
-                    <svg
-                    id="saucepan"
-                    class="saucepan"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="100"
-                    height="25"
-                    viewBox="0 0 100 25">
-                    <!-- Saucepan -->
-                    <path
-                        id="saucepan"
-                        fill="#031322"
-                        d="M99.4121763,0 C100.251924,0 100.083975,5.18181818 99.580126,5.18181818 C99.0762771,5.18181818 68.9573128,11.0909091 66.9979006,11.4545455 C65.7914565,11.6784427 64.7335781,12.109126 63.8896044,12.7465955 C61.9907888,19.0105689 60.9627999,22.4120996 60.806011,22.9533898 C60.4672589,24.1228814 58.6605807,25 34.5527194,25 C10.444858,25 8.58172115,25 7.45254731,22.2711864 C6.32337348,19.5423729 0.510480671,3.78672316 0.115269829,2.81214689 C-0.148204066,2.16242938 0.0399915733,1.90254237 0.679856747,2.03248588 L66.6236087,2.03248588 L66.6236087,2.03248588 C67,2.03248588 67.0940978,2.29237288 66.9059022,2.81214689 C66.5592917,3.95355462 66.2274015,5.04663387 65.9102317,6.09138463 C69.7930073,5.30938216 98.622234,0 99.4121763,0 Z"
-                    ></path>
-                    </svg>
-                </div>
+                <div class="animation_container">
+                    <img id="cleaning_gif" src="./assets/gifs/serving/serving_very_fast.gif" alt="">
                 </div>
             </div>
         </div>

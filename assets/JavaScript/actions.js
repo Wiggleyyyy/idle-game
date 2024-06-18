@@ -212,6 +212,68 @@ async function AutoCleaning() {
     }
 }
 
+
+async function autoUpdateGifs(){
+    const names = ["serving"]; // "cooking", "cleaning"
+    cooking_sec_temp = 0;
+    serving_sec_temp = 0;
+    cleaning_sec_temp = 0;
+    try{
+    while(true){
+        for (const name of names) {
+            let value = 0;
+            let compareValue = 0;
+            let change = document.getElementById(`${name}_gif`);
+            switch(name){
+                case "cooking":
+                    value = cooking_sec;
+                    compareValue = cooking_sec_temp;
+                    break;
+                case "serving":
+                    value = serving_sec;
+                    compareValue = serving_sec_temp;
+                    break;
+                case "cleaning":
+                    value = cleaning_sec;
+                    compareValue = cleaning_sec_temp;
+                    break;
+            }
+            if(value != compareValue){
+                switch(name){
+                    case "cooking":
+                        cooking_sec_temp = value;
+                        break;
+                    case "serving":
+                        serving_sec_temp = value;
+                        break;
+                    case "cleaning":
+                        cleaning_sec_temp = value;
+                        break;
+                }
+                if(value < 0.04){
+                    change.src = `./assets/gifs/${name}/${name}.png`;
+                } else if (value <= 0.1){
+                    change.src = `./assets/gifs/${name}/${name}_very_slow.gif`;
+                } else if (value <= 0.2){
+                    change.src = `./assets/gifs/${name}/${name}_slow.gif`;
+                } else if (value <= 0.25){
+                    change.src = `./assets/gifs/${name}/${name}_medium.gif`;
+                } else if (value <= 0.3){
+                    change.src = `./assets/gifs/${name}/${name}_fast.gif`;
+                } else{
+                    change.src = `./assets/gifs/${name}/${name}_very_fast.gif`;
+                }
+            }
+        }
+        await wait(1000);
+    }
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+
 async function autoCustomers() {
     try{
         while (true) {
@@ -247,6 +309,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     updateGUI();
     autoCustomers();
     advertisement();
+
+    autoUpdateGifs();
 
     AutoCooking()
     AutoServing()

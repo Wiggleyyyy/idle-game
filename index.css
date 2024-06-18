@@ -10,6 +10,8 @@
 
 body {
     background-color: #031322;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 h1 {
@@ -336,7 +338,10 @@ button {
     -webkit-appearance: none;
     appearance: none;
     box-sizing: border-box;
-
+    background-color: #010c14;
+    border-radius: 2vh;
+    border: 0;
+    overflow: hidden;
 }
 
 .card progress::-webkit-progress-bar {
@@ -349,6 +354,34 @@ button {
     border-radius: 2vh;
 }
 
+.card progress::-moz-progress-bar {
+    background-image: linear-gradient(150deg, #fff, #fbc60e);
+    border-radius: 2vh;
+}
+
+.card progress::-webkit-progress-bar {
+    background-color: transparent;
+}
+
+.card progress::-webkit-progress-value {
+    background-color: transparent;
+}
+
+.card progress::-moz-progress-bar {
+    background-color: transparent;
+}
+
+.card progress::-moz-progress-value {
+    background-color: transparent;
+}
+
+.card progress::-webkit-progress-value {
+    background: linear-gradient(150deg, #fff, #fbc60e);
+}
+
+.card progress::-moz-progress-bar {
+    background: linear-gradient(150deg, #fff, #fbc60e);
+}
 .card label {
     font-size: 4vh;
 }
@@ -603,6 +636,18 @@ button {
     margin: 1vh;
 }
 
+.management_content .column .workers_upgrade {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.management_content .column .adds_upgrade {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .upgrades .column {
     display: flex;
     flex-direction: column;
@@ -677,6 +722,30 @@ button {
     font-size: 1.7vh;
 }
 
+.upgrades .column .upgrades_research {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upgrades .column .upgrades_storage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upgrades .column .upgrades_storage .storage_raw_food_upgrade{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upgrades .column .upgrades_storage .upgrades_cooked_food_upgrade {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .events .column {
     display: flex;
     flex-direction: column;
@@ -697,12 +766,20 @@ button {
 }
 
 .animation {
-    width: 1vh;
+    width: 18%;
+}
+
+.animation img {
+    margin-bottom: -10vh;
 }
 
 @media (min-height: 1000px) and (max-height: 1200px) {
     .animation {
-        width: 27.25vh;
+        width: 32.5vh;
+    }
+
+    .animation img {
+        margin-bottom: -5vh;
     }
 }
 
@@ -710,11 +787,19 @@ button {
     .animation {
         width: 50.5vh;
     }
+
+    .animation img {
+        margin-bottom: -5vh;
+    }
 }
 
 @media (min-height: 600px) and (max-height: 700px) {
     .animation {
         width: 64.25vh;
+    }
+
+    .animation img {
+        margin-bottom: -10vh;
     }
 }
 
@@ -723,8 +808,4 @@ button {
     justify-content: center;
     align-items: center;
     width: 100%;
-}
-
-.animation .card_wrapper * {
-    margin-bottom: 4.5vh;
 }
