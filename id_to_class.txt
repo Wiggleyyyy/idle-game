@@ -31,7 +31,7 @@ main site:
             "stats" = cleaning_card_stats()
             "workers" = cleaning_card_workers(card_workers)
     Management:
-        management_card()
+        management_card_wrapper(card_wrapper_large)
         Raw food:
             Management_food_1()
             Management_food_2()

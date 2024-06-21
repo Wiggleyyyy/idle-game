@@ -1,5 +1,5 @@
-let workers = 0;
-let workers_max = 5;
+let workers = gameData.workers;
+let workers_max = gameData.workers_max;
 
 let cooking_workers = 0;
 let serving_workers = 0;
@@ -87,7 +87,7 @@ function workerRemove(task) {
 }
 
 function buyRawfood(times){
-    if (money >= times * 2 && raw_food+times < raw_food_max){
+    if (money >= times * 2 && raw_food+times <= raw_food_max){
         raw_food += times;
         money -= times * 2;
         updateGUI()

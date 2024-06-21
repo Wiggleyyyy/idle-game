@@ -1,18 +1,20 @@
-let raw_food = 5;
-let raw_food_max = 10;
+var gameData = JSON.parse(localStorage.getItem("idleCookingSaveData"));
 
-let cooked_food = 0;
-let cooked_food_max = 10;
+let raw_food = gameData.raw_food;
+let raw_food_max = gameData.raw_food_max;
 
-let hygiene = 80;
-let hygiene_max = 100;
+let cooked_food = gameData.cooked_food;
+let cooked_food_max = gameData.cooked_food_max;
 
-let money = 1000;
+let hygiene = gameData.hygiene;
+let hygiene_max = gameData.hygiene_max;
 
-let rebirth = 0;
+let money = gameData.money;
 
-let customers = 0;
-let customers_max = 10;
+let rebirth = gameData.rebirth;
+
+let customers = gameData.customers;
+let customers_max = gameData.customers_max;
 
 let currentTask = null;
 
@@ -22,8 +24,23 @@ let cleaning_sec = 0;
 
 let customers_sec = 0;
 
+let curretEvent = null;
+let eventTimeRemaining = 0;
+let eventMoneyMuti = 1;
+let eventCustomersMulti = 1;
+
+let upgrades = gameData.upgrades;  
+
+var serveIsShown = false;
+var cleanIsShown = false;
+var managementIsShown = false;
+var rawFoodQuantityBuyIsShown = false;
+var workersIsShown = false;
+var adsIsShown = false;
+
 function updateGUI() {
     try {
+
         document.getElementById('customers_value').textContent = customers + " / " + customers_max;
         document.getElementById('money_value').textContent =  "$" + money;
         document.getElementById('raw_food_value').textContent = raw_food + " / " + raw_food_max;
@@ -35,14 +52,95 @@ function updateGUI() {
         document.getElementById('cleaning_workers_label').textContent = cleaning_workers; 
         document.getElementById('buy_worker_capacity').textContent = "+1 ($" + (workers_max+1)*75 + ")";
 
+
+
         document.getElementById('cooking_persec').textContent = cooking_sec.toFixed(2)+" Cooked Food/sec";
         document.getElementById('serving_persec').textContent = "$"+(serving_sec*10).toFixed(2)+" /sec";
-        document.getElementById('cleaning_persec').textContent = cleaning_sec.toFixed(2)+" Hygiene/sec";
+        document.getElementById('cleaning_persec').textContent = (cleaning_sec*10).toFixed(2)+" Hygiene/sec";
 
         let price = (workers+cooking_workers+serving_workers+cleaning_workers+1)*50;
         document.getElementById('hire_button').textContent = `Hire new worker ($${price})`;
+
+        document.getElementById('upgrades_counter').textContent = upgrades+"/10";
+
+        document.getElementById('rebirth_button').textContent = "$"+1000*(rebirth+1);
     } catch (error) {
         console.log(error);
+    }
+
+    // Show elements
+    if (cooked_food > 0 & serveIsShown === false) {
+        serveIsShown = true;
+    }
+    if (hygiene <= 20 & cleanIsShown === false) {
+        cleanIsShown = true;
+    }
+    if (raw_food >= 2 & managementIsShown === false) {
+        managementIsShown = true;
+    }
+
+    showElements();
+
+    saveData();
+}
+
+function showElements() {
+    if (serveIsShown === true){
+        document.getElementById("serving_card_wrapper").className = "card_wrapper";
+    }
+    if (cleanIsShown === true) {
+        document.getElementById("cleaning_card_wrapper").className = "card_wrapper";
+    }
+    if (managementIsShown === true) {
+        document.getElementById("management_card").className = "";
+        document.getElementById("management_card_wrapper").className = "card_wrapper_large";
+    }
+    if (rawFoodQuantityBuyIsShown === true) {
+        document.getElementById("management_food_1").className = "hide";
+        document.getElementById("management_food_2").className = "management_food_2";
+    }
+    if (workersIsShown === true) {
+        document.getElementById("workers_upgrade").className = "workers_upgrade";
+    }
+    if (adsIsShown === true) {
+        document.getElementById("adds_upgrade").className = "adds_upgrade";
+    }
+    return;
+}
+
+function researchBuy(research, price, id){
+    if(money >= price){
+        money -= price;
+        document.getElementById(id).className = "hide";
+        upgrades++;
+        switch(research){
+            case "unlock_workers":
+                workersIsShown = true;
+                break;
+            case "workers_cooking":
+                break;
+            case "workers_serving":
+                break;
+            case "workers_cleaning":
+                break;
+            case "storage_raw_food":
+                break;
+            case "storage_cooked_food":
+                break;
+            case "storage_customers":
+                break;
+            case "raw_food_buy_upgrade":
+                rawFoodQuantityBuyIsShown = true;
+                break;
+            case "advertisement_unlock":
+                adsIsShown = true;
+                break;
+            case "events_upgrade":
+                break;
+        }
+    }
+    else{
+        showErrorToast("You dont have enough money");
     }
 }
 
@@ -52,7 +150,6 @@ function cooking_secAddAndRemove(){
     if(button.textContent === "Start Cooking" && currentTask === null){
         button.textContent = "Stop Cooking";
         cooking_sec += 0.1+rebirth*0.05;
-        showWarningToast("amogus");
         currentTask = "cooking_button";
     }
     else if (button.textContent === "Stop Cooking"){
@@ -95,6 +192,15 @@ function cleaning_secAddAndRemove(){
     }
 
     updateGUI();
+}
+
+function nextRebirth(){
+    if(money >= 1000*(rebirth+1) ){
+        
+    }
+    else{
+        showErrorToast("Not enough money or max capacity!");
+    }
 }
 
 async function AutoCooking() {
@@ -162,7 +268,7 @@ async function AutoServing() {
                 if (cooked_food >= 1 && customers >= 1) {
                     cooked_food--;
                     customers--;
-                    money += 10;
+                    money += 10 * eventMoneyMuti;
                     progress = 0;
                     progressElement.value = progress * 10;
                 }
@@ -197,7 +303,10 @@ async function AutoCleaning() {
 
             if (progress === 10) {
                 if (hygiene < hygiene_max) {
-                    hygiene++;
+                    hygiene += 10;
+                    if(hygiene > hygiene_max){
+                        hygiene = hygiene_max;
+                    }
                     progress = 0;
                     progressElement.value = progress * 10;
                 }
@@ -214,7 +323,7 @@ async function AutoCleaning() {
 
 
 async function autoUpdateGifs(){
-    const names = ["serving"]; // "cooking", "cleaning"
+    const names = ["cooking", "serving"]; //"cleaning"
     cooking_sec_temp = 0;
     serving_sec_temp = 0;
     cleaning_sec_temp = 0;
@@ -252,13 +361,13 @@ async function autoUpdateGifs(){
                 }
                 if(value < 0.04){
                     change.src = `./assets/gifs/${name}/${name}.png`;
-                } else if (value <= 0.1){
-                    change.src = `./assets/gifs/${name}/${name}_very_slow.gif`;
-                } else if (value <= 0.2){
-                    change.src = `./assets/gifs/${name}/${name}_slow.gif`;
                 } else if (value <= 0.25){
+                    change.src = `./assets/gifs/${name}/${name}_very_slow.gif`;
+                } else if (value <= 0.5){
+                    change.src = `./assets/gifs/${name}/${name}_slow.gif`;
+                } else if (value <= 1){
                     change.src = `./assets/gifs/${name}/${name}_medium.gif`;
-                } else if (value <= 0.3){
+                } else if (value <= 5){
                     change.src = `./assets/gifs/${name}/${name}_fast.gif`;
                 } else{
                     change.src = `./assets/gifs/${name}/${name}_very_fast.gif`;
@@ -283,7 +392,7 @@ async function autoCustomers() {
             if(customers > customers_max){
                 customers = customers_max;
             }
-            customers_sec = (30000-rebirth*2000) - hygiene * 110 * adsmult;
+            customers_sec = Math.round(35000*(1-(hygiene/100+adsmult/2.5+eventCustomersMulti/2+rebirth/100)/5));
             for (let progress = customers_sec/100; progress > 0; progress--) {
                 customers_sec -= 100;
                 if(customers_sec < 0){
@@ -301,6 +410,80 @@ async function autoCustomers() {
     }
 }
 
+async function autoEvents() {
+    document.getElementById('event_info').textContent = "";
+    document.getElementById('event_timer').textContent = formatSeconds(0); 
+    document.getElementById('event_title').textContent = "";
+    while (true) {
+        let max = 20; // 10
+        let randomInt = Math.floor(Math.random() * max);
+        if(randomInt == 0){
+            max = 5;
+            randomInt = Math.floor(Math.random() * max);
+            let description = "None";
+            let titel = "None";
+            switch(randomInt){
+                case 0:
+                    titel = "Rush hour";
+                    description = "Its rush hour so you get more customers into your restaurant.";
+                    eventTimeRemaining = 60;
+                    eventCustomersMulti = 2;
+                    break;
+                case 1:
+                    titel = "Health Inspection";
+                    description = "Theres a Health Inspection, so if you dont have above 50% hygiene at the end of the event you get a fine.";
+                    eventTimeRemaining = 20;
+                    break;
+                case 2:
+                    titel = "Donation";
+                    description = "A person has come and given you a donation.";
+                    eventTimeRemaining = 10;
+                    money += 100;
+                    break;
+                case 3:
+                    titel = "Happy Hour";
+                    description = "People are more happy so you get a little extra cash after giving people their food.";
+                    eventTimeRemaining = 60;
+                    eventMoneyMuti = 1.5;
+                    break;
+                case 4:
+                    titel = "Celebrity Appearance";
+                    description = "A celebrity has gone into your resturant and therefore give you 1 minute of free advertisement";
+                    eventTimeRemaining = 60;
+                    ads += 60;
+                    break;
+            }
+
+            updateGUI();
+            document.getElementById('event_info').textContent = description;
+            document.getElementById('event_title').textContent = titel;
+            while(eventTimeRemaining > 0){
+                eventTimeRemaining--;
+                document.getElementById('event_timer').textContent = formatSeconds(eventTimeRemaining); 
+                await wait(1000);
+            }
+            document.getElementById('event_info').textContent = "";
+            document.getElementById('event_title').textContent = "";
+
+            eventCustomersMulti = 1;
+            eventMoneyMuti = 1;
+            
+            if (randomInt == 1 && hygiene < 50){
+                money = money - 100;
+                if(money < 0 ){
+                    money = 0;
+                }
+            }
+            updateGUI();
+            await wait(10000);
+        }
+        else{
+            await wait(10000);
+        }
+    }
+    
+}
+
 async function wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -311,6 +494,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     advertisement();
 
     autoUpdateGifs();
+
+    autoEvents();
 
     AutoCooking()
     AutoServing()
