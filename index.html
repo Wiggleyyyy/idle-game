@@ -75,6 +75,9 @@
                 </div>
                 <div class="" id="workers_quantity_container">
                 </div>
+                <div id="workers_storage">
+                    <button onclick="researchBuy('storage_workers', 250, 'workers_storage')"><i class="filler"></i>Workers storage ($250)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock events.</span></button>
+                </div>
                 <!-- PART 3 OF UPGRADES -->
                 <div class="upgrades_container">
                     <div class="upgrades_column">
@@ -85,8 +88,8 @@
                     <div class="upgrades_column">
                         
                     </div>
-                    <div class="upgrades_column" id="advertisement_unlock">
-                        <button onclick="researchBuy('advertisement_unlock', 250, 'advertisement_unlock')"><i class="filler"></i>Advertisement<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock advertisements.</span></button>
+                    <div class="upgrades_column">
+                        
                     </div>
                 </div>
                 <div id="events_unlock">
@@ -103,7 +106,7 @@
                     <label>Cook</label>
                     <progress id="cooking_progress" value="0" max="100"></progress>
                     <button id="cooking_button" onclick="cooking_secAddAndRemove()" onclick="overwriteClick(0)"><span>Start Cooking</span></button>
-                    <div class="card_workers" id="cooking_card_workers">
+                    <div class="hide" id="cooking_card_workers">
                         <button onclick="workerRemove('cooking')"><i class="fa-solid fa-minus"></i></button>
                         <p>Workers:<i class="space"></i><span id="cooking_workers_label" >x</span></p>
                         <button onclick="workerAdd('cooking')"><i class="fa-solid fa-plus"></i></button>
@@ -118,7 +121,7 @@
                     <label>Serve</label>
                     <progress id="serving_progress" value="0" max="100"></progress>
                     <button id="serving_button" onclick="serving_secAddAndRemove()" onclick="overwriteClick(1)"><span>Start Serving</span></button>
-                    <div class="card_workers" id="serving_card_workers">
+                    <div class="hide" id="serving_card_workers">
                         <button onclick="workerRemove('serving')"><i class="fa-solid fa-minus"></i></button>
                         <p>Workers:<i class="space"></i><span id="serving_workers_label" >x</span></p>
                         <button onclick="workerAdd('serving')"><i class="fa-solid fa-plus"></i></button>
@@ -133,7 +136,7 @@
                     <label>Clean</label>
                     <progress id="cleaning_progress" value="0" max="100"></progress>
                     <button id="cleaning_button" onclick="cleaning_secAddAndRemove()" onclick="overwriteClick(2)"><span>Start Cleaning</span></button>
-                    <div class="card_workers" id="cleaning_card_workers">
+                    <div class="hide" id="cleaning_card_workers">
                         <button onclick="workerRemove('cleaning')"><i class="fa-solid fa-minus"></i></button>
                         <p>Workers:<i class="space"></i><span id="cleaning_workers_label">x</span></p>
                         <button onclick="workerAdd('cleaning')"><i class="fa-solid fa-plus"></i></button>
@@ -144,41 +147,39 @@
                 </div>
             </div>        
         </div>
-        <div class="hide" id="management_card">
-            <div class="hide" id="management_card_wrapper">
-                <div class="card_large">
-                    <label>Management</label>
-                    <hr>
-                    <div class="management_content">
-                        <div class="column">
-                            <!-- BUY FOOD -->
-                            <div class="management_food" id="management_food">
-                                <p class="desc">Buy more raw food to cook more.</p>
-                                <div class="" id="management_food_1">
-                                    <button id="raw_food_button" onclick="buyRawfood(1)">Buy raw food ($2)</button>
-                                </div>
-                                <div class="hide" id="management_food_2">
-                                    <button onclick="buyRawfood(1)">+1 ($2)</button>
-                                    <button onclick="buyRawfood(5)">+5 ($10)</button>
-                                    <button onclick="buyRawfood(10)">+10 ($20)</button>
-                                </div>
-                                <hr>
+        <div class="hide" id="management_card_wrapper">
+            <div class="card_large">
+                <label>Management</label>
+                <hr>
+                <div class="management_content">
+                    <div class="column">
+                        <!-- BUY FOOD -->
+                        <div class="management_food" id="management_food">
+                            <p class="desc">Buy more raw food to cook more.</p>
+                            <div class="" id="management_food_1">
+                                <button id="raw_food_button" onclick="buyRawfood(1)">Buy raw food ($2)</button>
                             </div>
-                            <!-- WORKERS -->
-                            <div class="hide" id="workers_upgrade">
-                                <p>Workers: <i class="space"></i><span id="worker_stats">x/x</span></p>
-                                <p class="desc">A worker can automate tasks <br> for you, like e.g. cooking.</p>
-                                <button id="hire_button" onclick="workerBuy()">Hire new worker ($x)</button>
-                                <hr>
+                            <div class="hide" id="management_food_2">
+                                <button onclick="buyRawfood(1)">+1 ($2)</button>
+                                <button onclick="buyRawfood(5)">+5 ($10)</button>
+                                <button onclick="buyRawfood(10)">+10 ($20)</button>
                             </div>
-                            <!-- ADDS -->
-                            <div class="hide" id="adds_upgrade">
-                                <p>Time remaining: <i class="space"></i><span id="adds_stats">00:00</span></p>
-                                <p class="desc" style="margin-left: 3.2vh;">Buy advertisement to get more customers for a period of time.</p>
-                                <button class="adds_button" onclick="adsAdd(10)">10 sec ($150)</button>
-                                <button class="adds_button" onclick="adsAdd(30)">30 sec ($450)</button>
-                                <button class="adds_button" onclick="adsAdd(60)">1 min ($900)</button>
-                            </div>
+                        </div>
+                        <!-- WORKERS -->
+                        <div class="hide" id="workers_upgrade">
+                            <hr>
+                            <p>Workers: <i class="space"></i><span id="worker_stats">x/x</span></p>
+                            <p class="desc">A worker can automate tasks <br> for you, like e.g. cooking.</p>
+                            <button id="hire_button" onclick="workerBuy()">Hire new worker ($x)</button>
+                        </div>
+                        <!-- ADDS -->
+                        <div class="hide" id="adds_upgrade">
+                            <hr>
+                            <p>Time remaining: <i class="space"></i><span id="adds_stats">00:00</span></p>
+                            <p class="desc" style="margin-left: 3.2vh;">Buy advertisement to get more customers for a period of time.</p>
+                            <button class="adds_button" onclick="adsAdd(10)">10 sec ($150)</button>
+                            <button class="adds_button" onclick="adsAdd(30)">30 sec ($450)</button>
+                            <button class="adds_button" onclick="adsAdd(60)">1 min ($900)</button>
                         </div>
                     </div>
                 </div>
@@ -195,12 +196,12 @@
                             <button class="upgrades_button" onclick="show_modal()">Research</button>
                             <p class="upgrades_stats">Upgrades: <i class="space"></i><span id="upgrades_counter" >0/13</span></p>
                         </div>
-                        <div class="upgrades_storage" id="upgrades_storage">
+                        <div class="hide" id="upgrades_storage">
                             <hr>
                             <label class="sub_title">Storage</label>
                             <p class="desc">Upgrade the storage/quantity.</p>
                             <div class="storage">
-                                <div class="storage_raw_food_upgrade" id="storage_raw_food_upgrade">
+                                <div class="hide" id="storage_raw_food_upgrade">
                                     <p>Raw food</p>
                                     <div class="storage_buttons">
                                         <button onclick="buyRawStorage(1)">+1 ($5)</button>
@@ -208,7 +209,7 @@
                                         <button onclick="buyRawStorage(10)">+10 ($50)</button>
                                     </div>
                                 </div>
-                                <div class="upgrades_cooked_food_upgrade" id="upgrades_cooked_food_upgrade">
+                                <div class="hide" id="upgrades_cooked_food_upgrade">
                                     <p>Cooked food</p>
                                     <div class="storage_buttons">
                                         <button onclick="buyCookedStorage(1)">+1 ($5)</button>
@@ -216,7 +217,7 @@
                                         <button onclick="buyCookedStorage(10)">+10 ($50)</button>
                                     </div>
                                 </div>
-                                <div class="storage_upgrade" id="customers_storage_upgrade">
+                                <div class="hide" id="customers_storage_upgrade">
                                     <p>Customers</p>
                                         <div class="storage_buttons">
                                         <button onclick="buyCustomerStorage(1)">+1 ($20)</button>
@@ -224,7 +225,7 @@
                                         <button onclick="buyCustomerStorage(10)">+10 ($200)</button>
                                     </div>
                                 </div>
-                                <div class="storage_upgrade" id="upgrades_workers">
+                                <div class="hide" id="upgrades_workers">
                                     <p>Workers</p>
                                     <button id="buy_worker_capacity" onclick="buyWorkerStorage()">+1 ($x)</button>
                                 </div>
@@ -234,8 +235,8 @@
                 </div>
             </div>
         </div>
-        <div class="events" id="events_card">
-            <div class="card_medium_wrapper">
+        <div class="events">
+            <div class="hide" id="events_card">
                 <div class="card_medium">
                     <div class="column">
                         <label>Events</label>
@@ -249,7 +250,7 @@
                     </div>
                 </div>
             </div>
-            <div class="rebirth_card_wrapper" id="rebirth_card">
+            <div class="hide" id="rebirth_card">
                 <div class="rebirth_card">
                     <label>Rebirth</label>
                     <hr>
@@ -260,13 +261,13 @@
             </div>
         </div>
         <div class="animation">
-            <div class="card_wrapper">
+            <div class="card_wrapper" id="cooking_animation">
                 <img class="cooking_gif" id="cooking_gif" src="./assets/gifs/cooking/cooking.png" alt="">
             </div>
-            <div class="card_wrapper">
+            <div class="hide" id="serving_animation">
                 <img id="serving_gif" src="./assets/gifs/serving/serving.png" alt="">
             </div>
-            <div class="card_wrapper">
+            <div class="hide" id="cleaning_animation">
                 <div class="animation_container">
                     <img id="cleaning_gif" src="./assets/gifs/serving/serving_very_fast.gif" alt="">
                 </div>

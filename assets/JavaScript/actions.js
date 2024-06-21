@@ -36,7 +36,17 @@ var cleanIsShown = false;
 var managementIsShown = false;
 var rawFoodQuantityBuyIsShown = false;
 var workersIsShown = false;
-var adsIsShown = false;
+var addsIsShown = false;
+var storageIsShown = false;
+var storageRawFoodIsShown = false;
+var storageCookedFoodIsShown = false;
+var storageCustomersIsShown = false;
+var storageWorkersIsShown = false;
+var eventIsShown = false;
+var rebirthIsShown = false;
+var cookWorkersIsShown = false;
+var serveWorkersIsShown = false;
+var cleanWorkersIsShown = false;
 
 function updateGUI() {
     try {
@@ -52,8 +62,6 @@ function updateGUI() {
         document.getElementById('cleaning_workers_label').textContent = cleaning_workers; 
         document.getElementById('buy_worker_capacity').textContent = "+1 ($" + (workers_max+1)*75 + ")";
 
-
-
         document.getElementById('cooking_persec').textContent = cooking_sec.toFixed(2)+" Cooked Food/sec";
         document.getElementById('serving_persec').textContent = "$"+(serving_sec*10).toFixed(2)+" /sec";
         document.getElementById('cleaning_persec').textContent = (cleaning_sec*10).toFixed(2)+" Hygiene/sec";
@@ -61,7 +69,7 @@ function updateGUI() {
         let price = (workers+cooking_workers+serving_workers+cleaning_workers+1)*50;
         document.getElementById('hire_button').textContent = `Hire new worker ($${price})`;
 
-        document.getElementById('upgrades_counter').textContent = upgrades+"/10";
+        document.getElementById('upgrades_counter').textContent = upgrades+"/11";
 
         document.getElementById('rebirth_button').textContent = "$"+1000*(rebirth+1);
     } catch (error) {
@@ -75,8 +83,11 @@ function updateGUI() {
     if (hygiene <= 20 & cleanIsShown === false) {
         cleanIsShown = true;
     }
-    if (raw_food >= 2 & managementIsShown === false) {
+    if (raw_food <= 2 & managementIsShown === false) {
         managementIsShown = true;
+    }
+    if (upgrades === 11) {
+        rebirthIsShown = true;
     }
 
     showElements();
@@ -87,12 +98,13 @@ function updateGUI() {
 function showElements() {
     if (serveIsShown === true){
         document.getElementById("serving_card_wrapper").className = "card_wrapper";
+        document.getElementById("serving_animation").className = "card_wrapper";
     }
     if (cleanIsShown === true) {
         document.getElementById("cleaning_card_wrapper").className = "card_wrapper";
+        document.getElementById("cleaning_animation").className = "card_wrapper";
     }
     if (managementIsShown === true) {
-        document.getElementById("management_card").className = "";
         document.getElementById("management_card_wrapper").className = "card_wrapper_large";
     }
     if (rawFoodQuantityBuyIsShown === true) {
@@ -102,8 +114,38 @@ function showElements() {
     if (workersIsShown === true) {
         document.getElementById("workers_upgrade").className = "workers_upgrade";
     }
-    if (adsIsShown === true) {
+    if (addsIsShown === true) {
         document.getElementById("adds_upgrade").className = "adds_upgrade";
+    }
+    if (storageIsShown === true) {
+        document.getElementById("upgrades_storage").className = "upgrades_storage";
+    }
+    if (storageRawFoodIsShown === true) {
+        document.getElementById("storage_raw_food_upgrade").className = "storage_raw_food_upgrade";
+    }
+    if (storageCookedFoodIsShown === true) {
+        document.getElementById("upgrades_cooked_food_upgrade").className = "upgrades_cooked_food_upgrade";
+    }
+    if (storageCustomersIsShown === true) {
+        document.getElementById("customers_storage_upgrade").className = "storage_upgrade";
+    }
+    if (storageWorkersIsShown === true) {
+        document.getElementById("upgrades_workers").className = "storage_upgrade";
+    }
+    if (eventIsShown === true) {
+        document.getElementById("events_card").className = "card_medium_wrapper";
+    }
+    if (rebirthIsShown === true) {
+        document.getElementById("rebirth_card").className = "rebirth_card_wrapper";
+    }
+    if (cookWorkersIsShown === true) {
+        document.getElementById("cooking_card_workers").className = "card_workers";
+    }
+    if (serveWorkersIsShown === true) {
+        document.getElementById("serving_card_workers").className = "card_workers";
+    }
+    if (cleanWorkersIsShown === true) {
+        document.getElementById("cleaning_card_workers").className ="card_workers";
     }
     return;
 }
@@ -113,29 +155,40 @@ function researchBuy(research, price, id){
         money -= price;
         document.getElementById(id).className = "hide";
         upgrades++;
+
         switch(research){
             case "unlock_workers":
                 workersIsShown = true;
                 break;
             case "workers_cooking":
+                cookWorkersIsShown = true;
                 break;
             case "workers_serving":
+                serveWorkersIsShown = true;
                 break;
             case "workers_cleaning":
+                cleanWorkersIsShown = true;
                 break;
             case "storage_raw_food":
+                storageRawFoodIsShown = true;
                 break;
             case "storage_cooked_food":
+                storageCookedFoodIsShown = true;
                 break;
             case "storage_customers":
+                storageCustomersIsShown = true;
+                break;
+            case "storage_workers":
+                storageWorkersIsShown = true;
                 break;
             case "raw_food_buy_upgrade":
                 rawFoodQuantityBuyIsShown = true;
                 break;
             case "advertisement_unlock":
-                adsIsShown = true;
+                addsIsShown = true;
                 break;
             case "events_upgrade":
+                eventIsShown = true;
                 break;
         }
     }
