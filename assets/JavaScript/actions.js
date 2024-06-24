@@ -150,6 +150,10 @@ function showElements() {
     return;
 }
 
+function reset(){
+    resetData();
+    location.reload();
+}
 function researchBuy(research, price, id){
     if(money >= price){
         money -= price;
@@ -376,7 +380,7 @@ async function AutoCleaning() {
 
 
 async function autoUpdateGifs(){
-    const names = ["cooking", "serving"]; //"cleaning"
+    const names = ["cooking", "serving", "cleaning"]; 
     cooking_sec_temp = 0;
     serving_sec_temp = 0;
     cleaning_sec_temp = 0;

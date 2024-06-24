@@ -25,7 +25,10 @@
             <p>Customers: <i class="space"></i><span id="customers_value">x/x</span> <i class="space"></i> : <i class="space"></i></i> <span id="customers_time">00:00 sec</span></p>
         </div>
         <h1 class="title">Idle Cooking</h1>
-        <img class="image_logo" src="./assets/Images/Logo-Photoroom.png" alt="Logo">    
+        <div class="logo_container">
+            <img class="image_logo" src="./assets/Images/Logo-Photoroom.png" alt="Logo">    
+            <button onclick="reset()">Reset</button>
+        </div>
     </div>
 
     <!-- POPUP -->
@@ -38,8 +41,8 @@
                     <button onclick="hide_modal()"><i class="fa-solid fa-circle-xmark"></i></button>
                 </div>
                 <hr>
-                <div class="" id="workers_unlock_container" style="margin-bottom: 1vh;">
-                    <button><i class="filler"></i>Unlock ads ($10)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock workers that can do tasks automatically.</span></span></button>
+                <div class="" id="advertisement_unlock" style="margin-bottom: 1vh;">
+                    <button onclick="researchBuy('advertisement_unlock', 10, 'advertisement_unlock')"><i class="filler"></i>Unlock ads ($10)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock workers that can do tasks automatically.</span></span></button>
                 </div>
                 <div class="" id="workers_unlock_container">
                     <button onclick="researchBuy('unlock_workers', 10, 'workers_unlock_container')"><i class="filler"></i>Unlock workers ($10)<span class="tooltip"><i class="fa-solid fa-circle-info"></i><span class="tooltip_text">Buy this to unlock workers that can do tasks automatically.</span></span></button>
@@ -269,7 +272,7 @@
             </div>
             <div class="hide" id="cleaning_animation">
                 <div class="animation_container">
-                    <img id="cleaning_gif" src="./assets/gifs/serving/serving_very_fast.gif" alt="">
+                    <img class="cleaning_animation" id="cleaning_gif" src="./assets/gifs/cleaning/cleaning.png" alt="">
                 </div>
             </div>
         </div>
